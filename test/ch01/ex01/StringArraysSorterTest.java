@@ -2,6 +2,11 @@ package ch01.ex01;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Test;
 
 /**
@@ -26,17 +31,17 @@ public class StringArraysSorterTest {
 		/**
 		 * テスト本体から取り出すためのcompare実行スレッドIDの仮置き場
 		 */
-		public long compareThreadId;
+		public List<Long> compareThreadIds = Collections.synchronizedList(new ArrayList<>());
 
 		@Override
-		public void sort(String[] strings) {
+		public String[] sort(final String[] strings) {
 			sortThreadId = Thread.currentThread().getId();
-			super.sort(strings);
+			return super.sort(strings);
 		}
 
 		@Override
-		public int compare(String first, String second) {
-			compareThreadId = Thread.currentThread().getId();
+		public int compare(final String first, final String second) {
+			compareThreadIds.add(Thread.currentThread().getId());
 			return super.compare(first, second);
 		}
 	}
@@ -45,12 +50,14 @@ public class StringArraysSorterTest {
 	public void testSort() {
 		final String[] strings = { "one", "two", "three", "four", "five" };
 		final StringArraysSorterStub stringArraysSorterStub = new StringArraysSorterStub();
-		stringArraysSorterStub.sort(strings);
-		final long sortThreadId = stringArraysSorterStub.sortThreadId;
-		final long compareThreadId = stringArraysSorterStub.compareThreadId;
+		System.out.println(Arrays.toString(stringArraysSorterStub.sort(strings)));
+		final Long sortThreadId = stringArraysSorterStub.sortThreadId;
+		final List<Long> compareThreadIds = stringArraysSorterStub.compareThreadIds;
 
 		// Arrays.sortでは同じスレッドのはず
-		assertEquals(sortThreadId, compareThreadId);
+		for (final Long compareThreadId : compareThreadIds) {
+			assertEquals(sortThreadId, compareThreadId);
+		}
 	}
 
 }

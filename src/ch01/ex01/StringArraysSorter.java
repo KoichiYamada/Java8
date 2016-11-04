@@ -3,7 +3,7 @@ package ch01.ex01;
 import java.util.Arrays;
 
 /**
- * StringArraysSorter Stringの配列をソートする。
+ * Stringの配列をソートする。
  *
  * @author 山田晃一
  */
@@ -14,10 +14,11 @@ public class StringArraysSorter {
 	 *
 	 * @param strings
 	 *            ソートするString配列
+	 * @return ソートされたstrings（同じインスタンス）
 	 */
-	public void sort(final String[] strings) {
+	public String[] sort(final String[] strings) {
 		Arrays.sort(strings, this::compare);
-		System.out.println(Arrays.toString(strings));
+		return strings;
 	}
 
 	/**
