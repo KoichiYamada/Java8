@@ -16,10 +16,10 @@ public class SubDirectories {
 	 *            サブディレクトリを列挙する親フォルダ
 	 * @return サブディレクトリの配列
 	 */
-	public String[] subDirectoriesByLambda(final String parentDirectoryPath) {
+	public File[] subDirectoriesByLambda(final String parentDirectoryPath) {
 		final File file = new File(parentDirectoryPath);
-		return file.list((dir, name) -> {
-			return new File(dir, name).isDirectory();
+		return file.listFiles(pathname -> {
+			return pathname.isDirectory();
 		});
 	}
 
@@ -30,21 +30,8 @@ public class SubDirectories {
 	 *            サブディレクトリを列挙する親フォルダ
 	 * @return サブディレクトリの配列
 	 */
-	public String[] subDirectoriesByFunctionRef(final String parentDirectoryPath) {
+	public File[] subDirectoriesByFunctionRef(final String parentDirectoryPath) {
 		final File file = new File(parentDirectoryPath);
-		return file.list(this::isDirectory);
-	}
-
-	/**
-	 * 指定されたアイテムがディレクトリか判定する
-	 *
-	 * @param dir
-	 *            アイテムのあるディレクトリ
-	 * @param name
-	 *            アイテムの名前
-	 * @return ディレクトリであるか
-	 */
-	private boolean isDirectory(final File dir, final String name) {
-		return new File(dir, name).isDirectory();
+		return file.listFiles(File::isDirectory);
 	}
 }
