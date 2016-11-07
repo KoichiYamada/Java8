@@ -1,0 +1,798 @@
+import static javax.swing.SpringLayout.*;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+
+public class Interpret extends JFrame {
+	public static void main(final String[] args) {
+		final JFrame frame = new Interpret();
+		frame.setVisible(true);
+	}
+
+	private int id;
+	private JTextField classNameField;
+	private JTabbedPane tabPane;
+	private Map<String, Object> classes;
+
+	public Interpret() {
+		setTitle("Interpret");
+		setSize(760, 600);
+		setMinimumSize(getSize());
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setupComponents();
+	}
+
+	private void setupComponents() {
+		final Container contentPane = getContentPane();
+		final SpringLayout s = new SpringLayout();
+		contentPane.setLayout(s);
+		//
+		final JLabel primitiveArrayLabel = new JLabel("プリミティブ配列はこちら→");
+		final JRadioButton radioBoolean = new JRadioButton("boolean");
+		final JRadioButton radioCharacter = new JRadioButton("char");
+		final JRadioButton radioByte = new JRadioButton("byte");
+		final JRadioButton radioShort = new JRadioButton("short");
+		final JRadioButton radioInteger = new JRadioButton("int");
+		final JRadioButton radioLong = new JRadioButton("long");
+		final JRadioButton radioFloat = new JRadioButton("float");
+		final JRadioButton radioDouble = new JRadioButton("double");
+		final ButtonGroup primitiveTypeGroup = new ButtonGroup();
+		primitiveTypeGroup.add(radioBoolean);
+		primitiveTypeGroup.add(radioCharacter);
+		primitiveTypeGroup.add(radioByte);
+		primitiveTypeGroup.add(radioShort);
+		primitiveTypeGroup.add(radioInteger);
+		primitiveTypeGroup.add(radioLong);
+		primitiveTypeGroup.add(radioFloat);
+		primitiveTypeGroup.add(radioDouble);
+		final JButton makeArrayButton = new JButton("配列作成");
+		s.putConstraint(NORTH, primitiveArrayLabel, 8, NORTH, contentPane);
+		s.putConstraint(NORTH, radioBoolean, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, radioCharacter, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, radioByte, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, radioShort, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, radioInteger, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, radioLong, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, radioFloat, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, radioDouble, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, makeArrayButton, 0, NORTH, primitiveArrayLabel);
+		s.putConstraint(WEST, primitiveArrayLabel, 8, WEST, contentPane);
+		s.putConstraint(EAST, makeArrayButton, -8, EAST, contentPane);
+		s.putConstraint(WEST, radioBoolean, 4, EAST, primitiveArrayLabel);
+		s.putConstraint(WEST, radioCharacter, 4, EAST, radioBoolean);
+		s.putConstraint(WEST, radioByte, 4, EAST, radioCharacter);
+		s.putConstraint(WEST, radioShort, 4, EAST, radioByte);
+		s.putConstraint(WEST, radioInteger, 4, EAST, radioShort);
+		s.putConstraint(WEST, radioLong, 4, EAST, radioInteger);
+		s.putConstraint(WEST, radioFloat, 4, EAST, radioLong);
+		s.putConstraint(WEST, radioDouble, 4, EAST, radioFloat);
+		s.putConstraint(SOUTH, primitiveArrayLabel, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioBoolean, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioCharacter, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioByte, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioShort, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioInteger, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioLong, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioFloat, 0, SOUTH, makeArrayButton);
+		s.putConstraint(SOUTH, radioDouble, 0, SOUTH, makeArrayButton);
+		contentPane.add(primitiveArrayLabel);
+		contentPane.add(radioBoolean);
+		contentPane.add(radioCharacter);
+		contentPane.add(radioByte);
+		contentPane.add(radioShort);
+		contentPane.add(radioInteger);
+		contentPane.add(radioLong);
+		contentPane.add(radioFloat);
+		contentPane.add(radioDouble);
+		contentPane.add(makeArrayButton);
+		//
+		final JLabel classNameLabel = new JLabel("クラス名");
+		classNameField = new JTextField();
+		final JButton displayButton = new JButton("表示");
+		s.putConstraint(NORTH, classNameLabel, 4, SOUTH, primitiveArrayLabel);
+		s.putConstraint(NORTH, classNameField, 0, NORTH, classNameLabel);
+		s.putConstraint(NORTH, displayButton, 0, NORTH, classNameField);
+		s.putConstraint(WEST, classNameLabel, 0, WEST, primitiveArrayLabel);
+		s.putConstraint(EAST, displayButton, 0, EAST, makeArrayButton);
+		s.putConstraint(WEST, classNameField, 4, EAST, classNameLabel);
+		s.putConstraint(EAST, classNameField, -4, WEST, displayButton);
+		s.putConstraint(SOUTH, classNameLabel, 0, SOUTH, displayButton);
+		s.putConstraint(SOUTH, classNameField, 0, SOUTH, displayButton);
+		contentPane.add(classNameLabel);
+		contentPane.add(classNameField);
+		contentPane.add(displayButton);
+		//
+		tabPane = new JTabbedPane();
+		classes = new HashMap<String, Object>();
+		s.putConstraint(NORTH, tabPane, 4, SOUTH, classNameLabel);
+		s.putConstraint(WEST, tabPane, 0, WEST, classNameLabel);
+		s.putConstraint(EAST, tabPane, 0, EAST, displayButton);
+		s.putConstraint(SOUTH, tabPane, -8, SOUTH, contentPane);
+		contentPane.add(tabPane);
+		//
+		makeArrayButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ev) {
+				if (primitiveTypeGroup.getSelection() != null) {
+					final String lenStr = JOptionPane.showInputDialog(Interpret.this, "長さを入力してください。");
+					try {
+						final Integer len = Integer.valueOf(lenStr);
+						if (radioBoolean.isSelected()) {
+							final Object obj = Array.newInstance(boolean.class, len);
+							createArrayTab(boolean.class.getSimpleName() + "[]", Array.class, obj);
+						} else if (radioCharacter.isSelected()) {
+							final Object obj = Array.newInstance(char.class, len);
+							createArrayTab(char.class.getSimpleName() + "[]", Array.class, obj);
+						} else if (radioByte.isSelected()) {
+							final Object obj = Array.newInstance(byte.class, len);
+							createArrayTab(byte.class.getSimpleName() + "[]", Array.class, obj);
+						} else if (radioShort.isSelected()) {
+							final Object obj = Array.newInstance(short.class, len);
+							createArrayTab(short.class.getSimpleName() + "[]", Array.class, obj);
+						} else if (radioInteger.isSelected()) {
+							final Object obj = Array.newInstance(int.class, len);
+							createArrayTab(int.class.getSimpleName() + "[]", Array.class, obj);
+						} else if (radioLong.isSelected()) {
+							final Object obj = Array.newInstance(long.class, len);
+							createArrayTab(long.class.getSimpleName() + "[]", Array.class, obj);
+						} else if (radioFloat.isSelected()) {
+							final Object obj = Array.newInstance(float.class, len);
+							createArrayTab(float.class.getSimpleName() + "[]", Array.class, obj);
+						} else if (radioDouble.isSelected()) {
+							final Object obj = Array.newInstance(double.class, len);
+							createArrayTab(double.class.getSimpleName() + "[]", Array.class, obj);
+						}
+					} catch (final NumberFormatException e) {
+						JOptionPane.showMessageDialog(Interpret.this, "入力が不正です。");
+					} catch (final NegativeArraySizeException e) {
+						JOptionPane.showMessageDialog(Interpret.this, "入力が不正です。");
+					}
+				} else {
+					JOptionPane.showMessageDialog(Interpret.this, "型を選択して下さい。");
+				}
+			}
+		});
+		classNameField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ev) {
+				displayButton.doClick();
+			}
+		});
+		displayButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ev) {
+				displayClass();
+			}
+		});
+	}
+
+	private void displayClass() {
+		final String className = classNameField.getText();
+		final Class<?> clazz;
+		try {
+			clazz = Class.forName(className, true, getClass().getClassLoader());
+		} catch (final ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(this, "クラスが見つかりません。");
+			return;
+		}
+		createTab(clazz.getSimpleName(), clazz, null);
+	}
+
+	void createTab(final String tabName, final Class<?> clazz, final Object instance) {
+		final DefaultTableModel model = createDefaultTableModel();
+		setupTab(tabName, model, clazz, instance);
+		listField(clazz, instance, model);
+	}
+
+	void createArrayTab(final String tabName, final Class<?> clazz, final Object instance) {
+		final DefaultTableModel model = createDefaultArrayTableModel();
+		setupArrayTab(tabName, model, clazz, instance);
+		listElement(clazz, instance, model);
+	}
+
+	static final int MODEL_IDX_VALUE = 3;
+	static final int MODEL_IDX_FIELD = 4;
+	static final int MODEL_IDX_INSTANCE = 5;
+
+	private DefaultTableModel createDefaultTableModel() {
+		return new DefaultTableModel(new String[] { "修飾子", "型", "変数名", "値", "Field", "Instance" }, 0) {
+			@Override
+			public boolean isCellEditable(final int row, final int column) {
+				return false;
+			}
+		};
+	}
+
+	static final int MODEL_IDX_ARRAY_VALUE = 1;
+	static final int MODEL_IDX_ARRAY_ELEMENT = 2;
+	static final int MODEL_IDX_ARRAY_INSTANCE = 3;
+
+	private DefaultTableModel createDefaultArrayTableModel() {
+		return new DefaultTableModel(new String[] { "インデックス", "値", "Element", "Instance" }, 0) {
+			@Override
+			public boolean isCellEditable(final int row, final int column) {
+				return false;
+			}
+		};
+	}
+
+	private void setupTab(final String className, final DefaultTableModel model, final Class<?> clazz,
+			final Object instance) {
+		final SpringLayout s = new SpringLayout();
+		final JPanel tabContentPane = new JPanel(s);
+		final JButton arrayButton = new JButton("配列作成");
+		final JButton closeButton = new JButton("閉じる");
+		s.putConstraint(NORTH, arrayButton, 4, NORTH, tabContentPane);
+		s.putConstraint(NORTH, closeButton, 0, NORTH, arrayButton);
+		s.putConstraint(EAST, arrayButton, -4, WEST, closeButton);
+		s.putConstraint(EAST, closeButton, -4, EAST, tabContentPane);
+		tabContentPane.add(arrayButton);
+		tabContentPane.add(closeButton);
+		// ---- コンストラクタ ----
+		final JLabel ctorLabel = new JLabel("コンストラクタ");
+		final Map<Constructor<?>, String> ctorMap = getConstructors(clazz);
+		final JComboBox ctorCombo = new JComboBox(ctorMap.values().toArray());
+		final JButton ctorInvokeButton = new JButton("呼ぶ");
+		s.putConstraint(NORTH, ctorLabel, 8, SOUTH, closeButton);
+		s.putConstraint(NORTH, ctorCombo, 0, NORTH, ctorLabel);
+		s.putConstraint(NORTH, ctorInvokeButton, 0, NORTH, ctorLabel);
+		s.putConstraint(WEST, ctorLabel, 4, WEST, tabContentPane);
+		s.putConstraint(EAST, ctorInvokeButton, 0, EAST, closeButton);
+		s.putConstraint(WEST, ctorCombo, 4, EAST, ctorLabel);
+		s.putConstraint(EAST, ctorCombo, -4, WEST, ctorInvokeButton);
+		s.putConstraint(SOUTH, ctorLabel, 0, SOUTH, ctorInvokeButton);
+		s.putConstraint(SOUTH, ctorCombo, 0, SOUTH, ctorInvokeButton);
+		tabContentPane.add(ctorLabel);
+		tabContentPane.add(ctorCombo);
+		tabContentPane.add(ctorInvokeButton);
+		// ---- フィールド ----
+		final JLabel fieldLabel = new JLabel("フィールド (値列のセルをダブルクリックで参照／編集(緑セルのみ)できます)");
+		final JButton reloadButton = new JButton("更新");
+		s.putConstraint(NORTH, fieldLabel, 8, SOUTH, ctorLabel);
+		s.putConstraint(NORTH, reloadButton, 0, NORTH, fieldLabel);
+		s.putConstraint(WEST, fieldLabel, 0, WEST, ctorLabel);
+		s.putConstraint(EAST, fieldLabel, 0, WEST, reloadButton);
+		s.putConstraint(EAST, reloadButton, 0, EAST, closeButton);
+		s.putConstraint(SOUTH, fieldLabel, 0, SOUTH, reloadButton);
+		tabContentPane.add(fieldLabel);
+		tabContentPane.add(reloadButton);
+		//
+		final JTable table = createTable(model);
+		table.setAutoCreateRowSorter(true);
+		final JScrollPane sp = new JScrollPane(table);
+		s.putConstraint(NORTH, sp, 4, SOUTH, fieldLabel);
+		s.putConstraint(WEST, sp, 0, WEST, fieldLabel);
+		s.putConstraint(EAST, sp, 0, EAST, reloadButton);
+		tabContentPane.add(sp);
+		//
+		TableColumn column = table.getColumn("Field");
+		table.removeColumn(column);
+		column = table.getColumn("Instance");
+		table.removeColumn(column);
+		// ---- メソッド ----
+		final JLabel methodLabel = new JLabel("メソッド");
+		final Map<Method, String> methodMap = getMethods(clazz, instance);
+		final JComboBox methodCombo = new JComboBox(methodMap.values().toArray());
+		final JButton methodInvokeButton = new JButton("呼ぶ");
+		s.putConstraint(SOUTH, sp, -8, NORTH, methodLabel);
+		s.putConstraint(NORTH, methodLabel, 0, NORTH, methodInvokeButton);
+		s.putConstraint(NORTH, methodCombo, 0, NORTH, methodInvokeButton);
+		s.putConstraint(WEST, methodLabel, 0, WEST, sp);
+		s.putConstraint(EAST, methodInvokeButton, 0, EAST, sp);
+		s.putConstraint(WEST, methodCombo, 4, EAST, methodLabel);
+		s.putConstraint(EAST, methodCombo, -4, WEST, methodInvokeButton);
+		s.putConstraint(SOUTH, methodLabel, 0, SOUTH, methodInvokeButton);
+		s.putConstraint(SOUTH, methodCombo, 0, SOUTH, methodInvokeButton);
+		s.putConstraint(SOUTH, methodInvokeButton, -4, SOUTH, tabContentPane);
+		tabContentPane.add(methodLabel);
+		tabContentPane.add(methodCombo);
+		tabContentPane.add(methodInvokeButton);
+		//
+		final String tabName = "[" + id++ + "]" + (instance == null ? className + "[static]" : className);
+		tabPane.addTab(tabName, tabContentPane);
+		classes.put(tabName, instance);
+		tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
+		//
+		arrayButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ev) {
+				final String lenStr = JOptionPane.showInputDialog(Interpret.this, "長さを入力してください。");
+				try {
+					final Integer len = Integer.valueOf(lenStr);
+					final Object obj = Array.newInstance(clazz, len);
+					createArrayTab(clazz.getSimpleName() + "[]", Array.class, obj);
+				} catch (final NumberFormatException e) {
+					JOptionPane.showMessageDialog(Interpret.this, "入力が不正です。");
+				} catch (final NegativeArraySizeException e) {
+					JOptionPane.showMessageDialog(Interpret.this, "入力が不正です。");
+				}
+			}
+		});
+		closeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				tabPane.remove(tabContentPane);
+				classes.remove(tabName);
+			}
+		});
+		reloadButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ev) {
+				listField(clazz, instance, model);
+			}
+		});
+		ctorInvokeButton.addActionListener(new ConstructorInvoker(this, ctorMap, ctorCombo, clazz, className, classes));
+		methodInvokeButton.addActionListener(new MethodInvoker(this, methodMap, instance, methodCombo, classes));
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent ev) {
+				if (ev.getClickCount() == 2) {
+					final Point pt = ev.getPoint();
+					final int row = table.rowAtPoint(pt);
+					final int col = table.columnAtPoint(pt);
+					if ((row >= 0) && (col == MODEL_IDX_VALUE)) {
+						final int modelRow = table.convertRowIndexToModel(row);
+						final Object value = model.getValueAt(modelRow, MODEL_IDX_VALUE);
+						final Field field = (Field) model.getValueAt(modelRow, MODEL_IDX_FIELD);
+						final Object instance = model.getValueAt(modelRow, MODEL_IDX_INSTANCE);
+						final Class<?> t = field.getType();
+						final boolean isOpenable = !t.isPrimitive() && (value != null);
+						final boolean isEditable = isEditable(field, instance);
+						boolean isCanceled = !isOpenable && !isEditable;
+						final SelectionDialog s = new SelectionDialog(Interpret.this);
+						if (isOpenable && isEditable) {
+							s.setVisible(true);
+							isCanceled = !s.isOpenTab() && !s.isEditValue();
+						}
+						if (isCanceled) {
+							return;
+						} else if (s.isOpenTab() || !isEditable) {
+							if (t.isArray()) {
+								createArrayTab(t.getSimpleName(), Array.class, value);
+							} else {
+								createTab(t.getSimpleName(), t, value);
+							}
+						} else if (s.isEditValue() || !isOpenable) {
+							final ParameterInputDialog p = new ParameterInputDialog(Interpret.this, classes);
+							p.setTitle("値の設定");
+							p.setType(t, "配列に格納する値を入力してください。");
+							p.setVisible(true);
+							if (!p.isOkPressed()) {
+								return;
+							}
+							final Object nv = parseInput(t, p);
+							try {
+								field.set(instance, nv);
+							} catch (final IllegalArgumentException e) {
+								JOptionPane.showMessageDialog(Interpret.this, "値の設定に失敗しました(" + e.getMessage() + ")");
+							} catch (final IllegalAccessException e) {
+								JOptionPane.showMessageDialog(Interpret.this, "値の設定に失敗しました(" + e.getMessage() + ")");
+							}
+							listField(clazz, instance, model);
+						}
+					}
+				}
+			}
+		});
+	}
+
+	private void setupArrayTab(final String className, final DefaultTableModel model, final Class<?> clazz,
+			final Object instance) {
+		final SpringLayout s = new SpringLayout();
+		final JPanel tabContentPane = new JPanel(s);
+		final JButton arrayButton = new JButton("配列作成");
+		final JButton closeButton = new JButton("閉じる");
+		s.putConstraint(NORTH, arrayButton, 4, NORTH, tabContentPane);
+		s.putConstraint(NORTH, closeButton, 0, NORTH, arrayButton);
+		s.putConstraint(EAST, arrayButton, -4, WEST, closeButton);
+		s.putConstraint(EAST, closeButton, -4, EAST, tabContentPane);
+		tabContentPane.add(arrayButton);
+		tabContentPane.add(closeButton);
+		// ---- 要素 ----
+		final JLabel elmLabel = new JLabel("要素 (値列のセルをダブルクリックで参照／編集(緑セルのみ)できます)");
+		final JButton reloadButton = new JButton("更新");
+		s.putConstraint(NORTH, elmLabel, 8, SOUTH, closeButton);
+		s.putConstraint(NORTH, reloadButton, 0, NORTH, elmLabel);
+		s.putConstraint(WEST, elmLabel, 4, WEST, tabContentPane);
+		s.putConstraint(EAST, elmLabel, 0, WEST, reloadButton);
+		s.putConstraint(EAST, reloadButton, 0, EAST, closeButton);
+		s.putConstraint(SOUTH, elmLabel, 0, SOUTH, reloadButton);
+		tabContentPane.add(elmLabel);
+		tabContentPane.add(reloadButton);
+		//
+		final JTable table = createArrayTable(model);
+		final JScrollPane sp = new JScrollPane(table);
+		s.putConstraint(NORTH, sp, 4, SOUTH, elmLabel);
+		s.putConstraint(WEST, sp, 0, WEST, elmLabel);
+		s.putConstraint(EAST, sp, 0, EAST, reloadButton);
+		tabContentPane.add(sp);
+		//
+		TableColumn column = table.getColumn("Element");
+		table.removeColumn(column);
+		column = table.getColumn("Instance");
+		table.removeColumn(column);
+		// ---- メソッド ----
+		final JLabel methodLabel = new JLabel("メソッド");
+		final Map<Method, String> methodMap = getMethods(clazz, instance);
+		final JComboBox methodCombo = new JComboBox(methodMap.values().toArray());
+		final JButton methodInvokeButton = new JButton("呼ぶ");
+		s.putConstraint(SOUTH, sp, -8, NORTH, methodLabel);
+		s.putConstraint(NORTH, methodLabel, 0, NORTH, methodInvokeButton);
+		s.putConstraint(NORTH, methodCombo, 0, NORTH, methodInvokeButton);
+		s.putConstraint(WEST, methodLabel, 0, WEST, sp);
+		s.putConstraint(EAST, methodInvokeButton, 0, EAST, sp);
+		s.putConstraint(WEST, methodCombo, 4, EAST, methodLabel);
+		s.putConstraint(EAST, methodCombo, -4, WEST, methodInvokeButton);
+		s.putConstraint(SOUTH, methodLabel, 0, SOUTH, methodInvokeButton);
+		s.putConstraint(SOUTH, methodCombo, 0, SOUTH, methodInvokeButton);
+		s.putConstraint(SOUTH, methodInvokeButton, -4, SOUTH, tabContentPane);
+		tabContentPane.add(methodLabel);
+		tabContentPane.add(methodCombo);
+		tabContentPane.add(methodInvokeButton);
+		//
+		final String tabName = "[" + id++ + "]" + (instance == null ? className + "[static]" : className);
+		tabPane.addTab(tabName, tabContentPane);
+		classes.put(tabName, instance);
+		tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
+		//
+		arrayButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ev) {
+				final String lenStr = JOptionPane.showInputDialog(Interpret.this, "長さを入力してください。");
+				try {
+					final Integer len = Integer.valueOf(lenStr);
+					final Object obj = Array.newInstance(instance.getClass(), len);
+					createArrayTab(className + "[]", Array.class, obj);
+				} catch (final NumberFormatException e) {
+					JOptionPane.showMessageDialog(Interpret.this, "入力が不正です。");
+				} catch (final NegativeArraySizeException e) {
+					JOptionPane.showMessageDialog(Interpret.this, "入力が不正です。");
+				}
+			}
+		});
+		closeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				tabPane.remove(tabContentPane);
+				classes.remove(tabName);
+			}
+		});
+		reloadButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ev) {
+				listElement(clazz, instance, model);
+			}
+		});
+		methodInvokeButton.addActionListener(new MethodInvoker(this, methodMap, instance, methodCombo, classes));
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent ev) {
+				if (ev.getClickCount() == 2) {
+					final Point pt = ev.getPoint();
+					final int row = table.rowAtPoint(pt);
+					final int col = table.columnAtPoint(pt);
+					if ((row >= 0) && (col == MODEL_IDX_ARRAY_VALUE)) {
+						final int modelRow = table.convertRowIndexToModel(row);
+						final Object value = model.getValueAt(modelRow, MODEL_IDX_ARRAY_VALUE);
+						final Object instance = model.getValueAt(modelRow, MODEL_IDX_ARRAY_INSTANCE);
+						final Class<?> t = instance.getClass().getComponentType();
+						final boolean isOpenable = !t.isPrimitive() && (value != null);
+						final boolean isEditable = true;
+						boolean isCanceled = !isOpenable && !isEditable;
+						final SelectionDialog s = new SelectionDialog(Interpret.this);
+						if (isOpenable && isEditable) {
+							s.setVisible(true);
+							isCanceled = !s.isOpenTab() && !s.isEditValue();
+						}
+						if (isCanceled) {
+							return;
+						} else if (s.isOpenTab() || !isEditable) {
+							if (t.isArray()) {
+								createArrayTab(t.getSimpleName(), Array.class, value);
+							} else {
+								createTab(t.getSimpleName(), t, value);
+							}
+						} else if (s.isEditValue() || !isOpenable) {
+							final ParameterInputDialog p = new ParameterInputDialog(Interpret.this, classes);
+							p.setTitle("値の設定");
+							p.setType(t, "配列に格納する値を入力してください。");
+							p.setVisible(true);
+							if (!p.isOkPressed()) {
+								return;
+							}
+							final Object nv = parseInput(t, p);
+							try {
+								Array.set(instance, modelRow, nv);
+							} catch (final IllegalArgumentException e) {
+								JOptionPane.showMessageDialog(Interpret.this, "値の設定に失敗しました(" + e.getMessage() + ")");
+							}
+							listElement(clazz, instance, model);
+						}
+					}
+				}
+			}
+		});
+	}
+
+	private JTable createTable(final DefaultTableModel model) {
+		return new JTable(model) {
+			@Override
+			public Component prepareRenderer(final TableCellRenderer renderer, final int row, final int column) {
+				final Component component = super.prepareRenderer(renderer, row, column);
+				final int modelRow = getRowSorter().convertRowIndexToModel(row);
+				if (column == MODEL_IDX_VALUE) {
+					final Field field = (Field) model.getValueAt(modelRow, MODEL_IDX_FIELD);
+					final Object instance = model.getValueAt(modelRow, MODEL_IDX_INSTANCE);
+					if (isEditable(field, instance)) {
+						component.setBackground(Color.GREEN);
+					} else {
+						component.setBackground(getBackground());
+					}
+				} else {
+					component.setBackground(getBackground());
+				}
+				return component;
+			}
+		};
+	}
+
+	private boolean isEditable(final Field field, final Object instance) {
+		final int mod = field.getModifiers();
+		final boolean isStaticFinal = Modifier.isStatic(mod) && Modifier.isFinal(mod);
+		boolean isEditable = true;
+		if (instance == null) {
+			isEditable = Modifier.isStatic(mod);
+		}
+		if (!isStaticFinal && isEditable) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private JTable createArrayTable(final DefaultTableModel model) {
+		return new JTable(model) {
+			@Override
+			public Component prepareRenderer(final TableCellRenderer renderer, final int row, final int column) {
+				final Component component = super.prepareRenderer(renderer, row, column);
+				if (column == 1) {
+					component.setBackground(Color.GREEN);
+				} else {
+					component.setBackground(getBackground());
+				}
+				return component;
+			}
+		};
+	}
+
+	private void listField(final Class<?> clazz, final Object instance, final DefaultTableModel model) {
+		model.setRowCount(0);
+		final ArrayList<Field> fields = new ArrayList<Field>();
+		fields.addAll(Arrays.asList(clazz.getFields()));
+		for (final Field field : clazz.getDeclaredFields()) {
+			if (!fields.contains(field)) {
+				fields.add(field);
+			}
+		}
+		final ArrayList<Field> pureFields = new ArrayList<Field>();
+		for (final Field field : fields) {
+			if (!field.isSynthetic()) {
+				pureFields.add(field);
+			}
+		}
+		for (final Field field : pureFields) {
+			field.setAccessible(true);
+			if ((instance == null) && !Modifier.isStatic(field.getModifiers())) {
+				continue;
+			}
+			final String mod = getMods(field);
+			final Type gType = field.getGenericType();
+			final String type = TypeUtil.getType(gType);
+			final String name = field.getName();
+			Object value = null;
+			if ((instance != null) || Modifier.isStatic(field.getModifiers())) {
+				try {
+					value = field.get(instance);
+				} catch (final IllegalArgumentException e) {
+					value = "[get fail. " + e.getMessage() + "]";
+				} catch (final IllegalAccessException e) {
+					value = "[get fail. " + e.getMessage() + "]";
+				}
+			}
+			model.addRow(new Object[] { mod, type.toString(), name, value, field, instance });
+		}
+	}
+
+	private void listElement(final Class<?> clazz, final Object instance, final DefaultTableModel model) {
+		model.setRowCount(0);
+		for (int index = 0; index < Array.getLength(instance); index++) {
+			final Object value = Array.get(instance, index);
+			model.addRow(new Object[] { index, value, value, instance });
+		}
+	}
+
+	private String getMods(final Member member) {
+		String mod = Modifier.toString(member.getModifiers());
+		if (member.getDeclaringClass().isInterface()) {
+			mod = "";
+		}
+		return mod;
+	}
+
+	private Map<Constructor<?>, String> getConstructors(final Class<?> cls) {
+		final Constructor<?>[] ctors = cls.getDeclaredConstructors();
+		final ArrayList<Constructor<?>> pureCtors = new ArrayList<Constructor<?>>();
+		for (final Constructor<?> ctor : ctors) {
+			if (!ctor.isSynthetic()) {
+				pureCtors.add(ctor);
+			}
+		}
+		final SortedMap<Constructor<?>, String> map = new TreeMap<Constructor<?>, String>(
+				new Comparator<Constructor<?>>() {
+					@Override
+					public int compare(final Constructor<?> o1, final Constructor<?> o2) {
+						final int order = o1.getName().compareTo(o2.getName());
+						return order == 0 ? 1 : order;
+					}
+				});
+		for (final Constructor<?> ctor : pureCtors) {
+			final StringBuilder sb = new StringBuilder(getMods(ctor));
+			sb.append(sb.length() == 0 ? "" : " ").append(ctor.getDeclaringClass().getSimpleName());
+			final Type[] parameterTypes = ctor.getGenericParameterTypes();
+			sb.append("(").append(getParams(parameterTypes)).append(")");
+			final Type[] exceptionTypes = ctor.getGenericExceptionTypes();
+			sb.append(getExceptions(exceptionTypes));
+			map.put(ctor, sb.toString());
+		}
+		return map;
+	}
+
+	private Map<Method, String> getMethods(final Class<?> clazz, final Object instance) {
+		final Method[] methods = clazz.getMethods();
+		final Method[] declaredMethods = clazz.getDeclaredMethods();
+		final ArrayList<Method> pureMethods = new ArrayList<Method>();
+		for (final Method method : methods) {
+			if (!method.isSynthetic()) {
+				if ((instance != null) || Modifier.isStatic(method.getModifiers())) {
+					pureMethods.add(method);
+				}
+			}
+		}
+		for (final Method method : declaredMethods) {
+			if (!pureMethods.contains(method)) {
+				if (!method.isSynthetic()) {
+					if ((instance != null) || Modifier.isStatic(method.getModifiers())) {
+						pureMethods.add(method);
+					}
+				}
+			}
+		}
+		final SortedMap<Method, String> map = new TreeMap<Method, String>(new Comparator<Method>() {
+			@Override
+			public int compare(final Method o1, final Method o2) {
+				final int order = o1.getName().compareTo(o2.getName());
+				return order == 0 ? 1 : order;
+			}
+		});
+		for (final Method method : pureMethods) {
+			final StringBuilder dispMethod = new StringBuilder(getMods(method));
+			final Type returnType = method.getGenericReturnType();
+			dispMethod.append(dispMethod.length() == 0 ? "" : " ").append(TypeUtil.getType(returnType));
+			dispMethod.append(" ").append(method.getName());
+			final Type[] parameterTypes = method.getGenericParameterTypes();
+			dispMethod.append("(").append(getParams(parameterTypes)).append(")");
+			final Type[] exceptionTypes = method.getGenericExceptionTypes();
+			dispMethod.append(getExceptions(exceptionTypes));
+			map.put(method, dispMethod.toString());
+		}
+		return map;
+	}
+
+	private String getParams(final Type[] parameterTypes) {
+		final StringBuilder ret = new StringBuilder();
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (i != 0) {
+				ret.append(", ");
+			}
+			ret.append(TypeUtil.getType(parameterTypes[i]));
+		}
+		return ret.toString();
+	}
+
+	private String getExceptions(final Type[] exceptionTypes) {
+		final StringBuilder ret = new StringBuilder();
+		for (int i = 0; i < exceptionTypes.length; i++) {
+			if (i == 0) {
+				ret.append("throws ");
+			} else {
+				ret.append(", ");
+			}
+			ret.append(TypeUtil.getType(exceptionTypes[i]));
+		}
+		return ret.toString();
+	}
+
+	private Object parseInput(final Class<?> t, final ParameterInputDialog p) {
+		Object value = null;
+		if (Boolean.TYPE.equals(t)) {
+			value = Boolean.valueOf(((JTextField) p.getInputs()[0]).getText());
+		} else if (Character.TYPE.equals(t)) {
+			value = Character.valueOf(((JTextField) p.getInputs()[0]).getText().charAt(0));
+		} else if (Byte.TYPE.equals(t)) {
+			value = Byte.valueOf(((JTextField) p.getInputs()[0]).getText());
+		} else if (Short.TYPE.equals(t)) {
+			value = Short.valueOf(((JTextField) p.getInputs()[0]).getText());
+		} else if (Integer.TYPE.equals(t)) {
+			value = Integer.valueOf(((JTextField) p.getInputs()[0]).getText());
+		} else if (Long.TYPE.equals(t)) {
+			value = Long.valueOf(((JTextField) p.getInputs()[0]).getText());
+		} else if (Float.TYPE.equals(t)) {
+			value = Float.valueOf(((JTextField) p.getInputs()[0]).getText());
+		} else if (Double.TYPE.equals(t)) {
+			value = Double.valueOf(((JTextField) p.getInputs()[0]).getText());
+		} else {
+			final String key = (String) ((JComboBox) p.getInputs()[0]).getSelectedItem();
+			if (((JComboBox) p.getInputs()[0]).getSelectedIndex() == -1) {
+				if (((Class<?>) t).equals(Boolean.class)) {
+					value = Boolean.valueOf(key);
+				} else if (((Class<?>) t).equals(Character.class)) {
+					value = Character.valueOf(key.charAt(0));
+				} else if (((Class<?>) t).equals(Byte.class)) {
+					value = Byte.valueOf(key);
+				} else if (((Class<?>) t).equals(Short.class)) {
+					value = Short.valueOf(key);
+				} else if (((Class<?>) t).equals(Integer.class)) {
+					value = Integer.valueOf(key);
+				} else if (((Class<?>) t).equals(Long.class)) {
+					value = Long.valueOf(key);
+				} else if (((Class<?>) t).equals(Float.class)) {
+					value = Float.valueOf(key);
+				} else if (((Class<?>) t).equals(Double.class)) {
+					value = Double.valueOf(key);
+				} else if (((Class<?>) t).equals(String.class)) {
+					value = key;
+				}
+			} else {
+				value = classes.get(key);
+			}
+		}
+		return value;
+	}
+}
