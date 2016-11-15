@@ -24,8 +24,6 @@ public class ListFiles {
 	 * @return 条件に一致したファイルの配列
 	 */
 	public String[] listFilesWithExtention(final File directory, final String extention) {
-		return directory.list((dir, name) -> {
-			return name.endsWith(extention);
-		});
+		return directory.list((dir, name) -> name.endsWith(extention));
 	}
 }

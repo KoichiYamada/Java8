@@ -18,9 +18,7 @@ public class SubDirectories {
 	 */
 	public File[] subDirectoriesByLambda(final String parentDirectoryPath) {
 		final File file = new File(parentDirectoryPath);
-		return file.listFiles(pathname -> {
-			return pathname.isDirectory();
-		});
+		return file.listFiles(pathname -> pathname.isDirectory());
 	}
 
 	/**
