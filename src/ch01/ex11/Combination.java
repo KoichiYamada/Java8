@@ -1,11 +1,11 @@
 package ch01.ex11;
 
 /**
- * Ex11回答用クラス
+ * 組み合わせの検証
  *
  * @author 山田晃一
  */
-public class Ex11Answer {
+public class Combination {
 
 	/**
 	 * <tt>

@@ -13,5 +13,5 @@ package ch01.ex05;
  * Ａ：今回のファイルではできなかった。
  */
 
-public class Ex05Answer {
+public class ReduceLines {
 }

@@ -10,7 +10,7 @@ package ch01.ex12;
  * 　　非互換性リストにも載っていない（http://www.oracle.com/technetwork/jp/java/javase/overview/8-compatibility-guide-2156366-ja.html#A999081）
  */
 
-public class Ex12Answer {
+public class UseOldCollection {
 
 	public static void main(String[] argv) {
 		// OldCollection.javaからjarを作って、ビルドパスに追加している場合のみコンパイル可能
