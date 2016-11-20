@@ -21,7 +21,7 @@ public class Filter {
 	/**
 	 * データファイルのパス
 	 */
-	private static String DATA_FILE_PATH = "src\\ch02\\ex02\\alice30.txt";
+	private static String DATA_FILE_PATH = "src/ch02/ex02/alice30.txt";
 
 	/**
 	 * エントリポイント

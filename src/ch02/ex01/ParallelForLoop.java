@@ -35,7 +35,7 @@ public class ParallelForLoop {
 	/**
 	 * データファイルのパス
 	 */
-	private static String DATA_FILE_PATH = "src\\ch02\\ex01\\alice30.txt";
+	private static String DATA_FILE_PATH = "src/ch02/ex01/alice30.txt";
 
 	/**
 	 * エントリポイント

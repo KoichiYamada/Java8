@@ -18,7 +18,7 @@ public class ShortWordCounter {
 	/**
 	 * データファイルのパス
 	 */
-	private static String DATA_FILE_PATH = "src\\ch02\\ex13\\alice30.txt";
+	private static String DATA_FILE_PATH = "src/ch02/ex13/alice30.txt";
 
 	/**
 	 * エントリポイント

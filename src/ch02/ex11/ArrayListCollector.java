@@ -24,7 +24,7 @@ public class ArrayListCollector {
 	/**
 	 * データファイルのパス
 	 */
-	private static String DATA_FILE_PATH = "src\\ch02\\ex11\\alice30.txt";
+	private static String DATA_FILE_PATH = "src/ch02/ex11/alice30.txt";
 
 	/**
 	 * エントリポイント

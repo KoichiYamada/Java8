@@ -22,7 +22,7 @@ public class StreamBenchmark {
 	/**
 	 * データファイルのパス
 	 */
-	private static String DATA_FILE_PATH = "src\\ch02\\ex03\\alice30.txt";
+	private static String DATA_FILE_PATH = "src/ch02/ex03/alice30.txt";
 
 	/**
 	 * エントリポイント
