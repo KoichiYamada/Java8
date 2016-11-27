@@ -1,4 +1,4 @@
-package ch03.ex05;
+package ch03.ex08;
 
 import java.io.File;
 
@@ -12,11 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * グレーの縁取りをするクラス
+ * 任意の色で縁取りをする
  *
  * @author 山田晃一
  */
-public class GrayFramer extends Application {
+public class ColorFramer extends Application {
 
 	/**
 	 * イメージを変更する
@@ -41,9 +41,9 @@ public class GrayFramer extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		final Image image = new Image(new File("src/ch03/ex05/queen-mary.png").toURI().toString());
-		primaryStage.setScene(new Scene(new HBox(new ImageView(transform(image, (x, y,
-				c) -> x < 10 || x > image.getWidth() - 10 || y < 10 || y > image.getHeight() - 10 ? Color.GRAY : c)))));
+		final Image image = new Image(new File("src/ch03/ex08/queen-mary.png").toURI().toString());
+		primaryStage.setScene(
+				new Scene(new HBox(new ImageView(transform(image, ColorTransformer.create(image, 50, Color.CYAN))))));
 		primaryStage.show();
 	}
 
