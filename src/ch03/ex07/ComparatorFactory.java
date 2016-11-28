@@ -59,9 +59,9 @@ public class ComparatorFactory {
 	 */
 	public static Comparator<String> create(final boolean normalOrder, final boolean ignoreCase,
 			final boolean ignoreSpace) {
-		return (t1, t2) -> {
-			final String l = ignoreSpace ? t1.replaceAll(" ", "") : t1;
-			final String r = ignoreSpace ? t2.replaceAll(" ", "") : t2;
+		return (o1, o2) -> {
+			final String l = ignoreSpace ? o1.replaceAll(" ", "") : o1;
+			final String r = ignoreSpace ? o2.replaceAll(" ", "") : o2;
 			if (ignoreCase) {
 				return normalOrder ? l.compareToIgnoreCase(r) : r.compareToIgnoreCase(l);
 			} else {
