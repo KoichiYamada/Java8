@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -43,7 +43,7 @@ public class ColorFramer extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		final Image image = new Image(new File("src/ch03/ex08/queen-mary.png").toURI().toString());
 		primaryStage.setScene(
-				new Scene(new HBox(new ImageView(transform(image, ColorTransformer.create(image, 50, Color.CYAN))))));
+				new Scene(new Pane(new ImageView(transform(image, ColorTransformer.create(image, 50, Color.CYAN))))));
 		primaryStage.show();
 	}
 
