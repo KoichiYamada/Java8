@@ -23,8 +23,8 @@ public interface ColorTransformer {
 	 * @return ColorTransformer
 	 */
 	static ColorTransformer create(final Image image, final int frameWidth, final Color color) {
-		return (x, y, c) -> x < frameWidth || x > image.getWidth() - frameWidth || y < frameWidth
-				|| y > image.getHeight() - frameWidth ? color : c;
+		return (x, y, c) -> (x < frameWidth) || (x > (image.getWidth() - frameWidth)) || (y < frameWidth)
+				|| (y > (image.getHeight() - frameWidth)) ? color : c;
 	}
 
 	/**

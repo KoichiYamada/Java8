@@ -33,15 +33,15 @@ public class FxmlDialog extends Application implements Initializable {
 	private Button okButton;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(final URL location, final ResourceBundle resources) {
 		okButton.disableProperty()
 				.bind(Bindings.createBooleanBinding(
-						() -> username.getText().length() == 0 || password.getText().length() == 0,
+						() -> (username.getText().length() == 0) || (password.getText().length() == 0),
 						username.textProperty(), password.textProperty()));
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		final Parent root = FXMLLoader.load(new URL(new File("src/ch04/ex08/dialog.fxml").toURI().toString()));
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
@@ -53,7 +53,7 @@ public class FxmlDialog extends Application implements Initializable {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 }

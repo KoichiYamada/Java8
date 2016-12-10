@@ -33,7 +33,7 @@ public class BiArgTransformer extends Application {
 	public static <T> Image transform(final Image in, final BiFunction<Color, T, Color> f, final T arg) {
 		final int width = (int) in.getWidth();
 		final int height = (int) in.getHeight();
-		WritableImage out = new WritableImage(width, height);
+		final WritableImage out = new WritableImage(width, height);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				out.getPixelWriter().setColor(x, y, f.apply(in.getPixelReader().getColor(x, y), arg));
@@ -43,7 +43,7 @@ public class BiArgTransformer extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		final Image image = new Image(new File("src/ch03/ex06/queen-mary.png").toURI().toString());
 		primaryStage.setScene(new Scene(new HBox(new ImageView(image),
 				new ImageView(transform(image, (c, arg) -> c.deriveColor(0, 1, arg, 1), 1.2)))));

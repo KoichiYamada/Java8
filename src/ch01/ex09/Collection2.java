@@ -23,7 +23,7 @@ public interface Collection2<T> extends Collection<T> {
 	 * @param filter
 	 *            アクションを適用すべき要素にtrueを返すフィルター
 	 */
-	default void forEachIf(Consumer<T> action, Predicate<T> filter) {
+	default void forEachIf(final Consumer<T> action, final Predicate<T> filter) {
 		final Iterator<T> ite = iterator();
 		while (ite.hasNext()) {
 			final T elm = ite.next();

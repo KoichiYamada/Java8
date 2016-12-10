@@ -29,7 +29,7 @@ public class ZipStreamsTest {
 		assertEquals(101, integers.length);
 		// 交互になったか
 		for (int i = 0; i < integers.length; i++) {
-			if (i % 2 == 0) {
+			if ((i % 2) == 0) {
 				assertTrue(integers[i] < 100);
 			} else {
 				assertTrue(integers[i] >= 100);

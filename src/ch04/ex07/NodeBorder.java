@@ -31,19 +31,19 @@ import javafx.stage.Stage;
 public class NodeBorder extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		final double rem = new Text("").getLayoutBounds().getHeight();
 
-		GridPane pane = new GridPane();
+		final GridPane pane = new GridPane();
 		// pane.setGridLinesVisible(true);
 
 		pane.setHgap(0.8 * rem);
 		pane.setVgap(0.8 * rem);
 		pane.setPadding(new Insets(0.8 * rem));
-		Label usernameLabel = new Label("User name:");
-		Label passwordLabel = new Label("Password:");
-		TextField username = new TextField();
-		PasswordField password = new PasswordField();
+		final Label usernameLabel = new Label("User name:");
+		final Label passwordLabel = new Label("Password:");
+		final TextField username = new TextField();
+		final PasswordField password = new PasswordField();
 
 		// ラベルとフィールドに境界を描画するコード
 		usernameLabel.setBorder(createBorderWithColor("red"));
@@ -51,14 +51,14 @@ public class NodeBorder extends Application {
 		username.setBorder(createBorderWithColor("red"));
 		password.setBorder(createBorderWithColor("red"));
 
-		Button okButton = new Button("Ok");
-		Button cancelButton = new Button("Cancel");
+		final Button okButton = new Button("Ok");
+		final Button cancelButton = new Button("Cancel");
 
 		// ボタンに境界を描画するコード
 		okButton.setBorder(createBorderWithColor("red"));
 		cancelButton.setBorder(createBorderWithColor("red"));
 
-		HBox buttons = new HBox(0.8 * rem);
+		final HBox buttons = new HBox(0.8 * rem);
 		buttons.getChildren().addAll(okButton, cancelButton);
 		buttons.setAlignment(Pos.CENTER);
 		// buttons.setStyle("-fx-border-color: red;");
@@ -96,7 +96,7 @@ public class NodeBorder extends Application {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 }

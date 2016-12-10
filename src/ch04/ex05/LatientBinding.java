@@ -22,7 +22,7 @@ public class LatientBinding {
 	 *            バインドするプロパティ
 	 * @return 計算型プロパティ
 	 */
-	public static <T, R> ObservableValue<R> observe(Function<T, R> f, ObservableValue<T> t) {
+	public static <T, R> ObservableValue<R> observe(final Function<T, R> f, final ObservableValue<T> t) {
 		return new ObservableValueBase<R>() {
 
 			{
@@ -48,8 +48,8 @@ public class LatientBinding {
 	 *            バインドするプロパティ
 	 * @return 計算型プロパティ
 	 */
-	public static <T, U, R> ObservableValue<R> observe(BiFunction<T, U, R> f, ObservableValue<T> t,
-			ObservableValue<U> u) {
+	public static <T, U, R> ObservableValue<R> observe(final BiFunction<T, U, R> f, final ObservableValue<T> t,
+			final ObservableValue<U> u) {
 		return new ObservableValueBase<R>() {
 
 			{

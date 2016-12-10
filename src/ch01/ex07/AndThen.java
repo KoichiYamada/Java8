@@ -13,7 +13,7 @@ public class AndThen {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		// 二つのRunnableを渡し、返されたインスタンスを実行する。
 		new Thread(andThen(() -> {
 			for (int i = 0; i < 100; i++) {

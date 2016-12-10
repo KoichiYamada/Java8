@@ -21,7 +21,7 @@ public class DoubleStreamsTest {
 		final DoubleStream doubleStream = Arrays.stream(doubles); // 後でaverage使うので↓
 		final Stream<Double> objStream = Arrays.stream(doubles).boxed(); // ここでは別のstreamにする
 
-		double ave = DoubleStreams.average(objStream);
+		final double ave = DoubleStreams.average(objStream);
 
 		assertEquals(doubleStream.average().getAsDouble(), ave, 0.0);
 	}

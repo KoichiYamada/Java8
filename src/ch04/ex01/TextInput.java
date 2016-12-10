@@ -21,12 +21,12 @@ public class TextInput extends Application {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		final Label message = new Label("Hello, FX");
 		message.setFont(new Font(100));
 		final TextField input = new TextField("Hello, FX");

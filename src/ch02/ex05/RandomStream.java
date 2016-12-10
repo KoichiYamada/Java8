@@ -15,7 +15,7 @@ public class RandomStream {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		final Stream<Long> stream = RandomStream.generate(25214903917L, 11, (long) Math.pow(2, 18), System.nanoTime());
 		stream.limit(10).forEach(System.out::println);
 	}
@@ -30,6 +30,6 @@ public class RandomStream {
 	 * @return 疑似乱数ストリーム
 	 */
 	public static Stream<Long> generate(final long a, final long c, final long m, final long seed) {
-		return Stream.iterate(seed, x -> (a * x + c) % m).skip(1); // seedは飛ばす
+		return Stream.iterate(seed, x -> ((a * x) + c) % m).skip(1); // seedは飛ばす
 	}
 }

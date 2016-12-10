@@ -1,9 +1,10 @@
-package ch03.ex13;
+package ch03.ex15;
 
 import java.io.File;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -35,7 +36,7 @@ public class BlurAndEdge extends Application {
 				for (int j = 0; j < 3; j++) {
 					final int xx = (x + i) - 1;
 					final int yy = (y + j) - 1;
-					if ((xx < 0) || (xx >= l.getWidth()) || (yy < 0) || (yy >= l.getHeight())) {
+					if ((xx < 0) || (xx >= origImage.getWidth()) || (yy < 0) || (yy >= origImage.getHeight())) {
 						continue;
 					}
 					final Color c = l.getColor(xx, yy);
@@ -64,7 +65,7 @@ public class BlurAndEdge extends Application {
 			for (int i = 0; i < 3; i++) {
 				final int xx = xArray[i];
 				final int yy = yArray[i];
-				if ((xx < 0) || (xx >= l.getWidth()) || (yy < 0) || (yy >= l.getHeight())) {
+				if ((xx < 0) || (xx >= origImage.getWidth()) || (yy < 0) || (yy >= origImage.getHeight())) {
 					continue;
 				}
 				final Color c = l.getColor(xx, yy);
@@ -84,39 +85,45 @@ public class BlurAndEdge extends Application {
 
 		// フレーム
 		final ColorTransformer frame = (x, y,
-				l) -> (x < 10) || (x > (l.getWidth() - 10)) || (y < 10) || (y > (l.getHeight() - 10))
-						? Color.GRAY : l.getColor(x, y);
+				l) -> (x < 10) || (x > (origImage.getWidth() - 10)) || (y < 10) || (y > (origImage.getHeight() - 10))
+						? Color.GRAY
+						: l.getColor(x, y);
 
-		// /**
-		// * <code> ブラー単体とエッジ単体
-		final Image blurImage = LatentImage.from(origImage).transform(blur).toImage();
-		final Image edgeImage = LatentImage.from(origImage).transform(edge).toImage();
-		final HBox origBlueEdge = new HBox(new ImageView(origImage), new ImageView(blurImage),
-				new ImageView(edgeImage));
-		primaryStage.setScene(new Scene(origBlueEdge));
-		// </code>
-		// */
+		try {
+			// /**
+			// * <code> ブラー単体とエッジ単体
+			final Image blurImage = LatentImage.from(origImage).transform(blur).toImageParallel();
+			final Image edgeImage = LatentImage.from(origImage).transform(edge).toImageParallel();
+			final HBox origBlueEdge = new HBox(new ImageView(origImage), new ImageView(blurImage),
+					new ImageView(edgeImage));
+			primaryStage.setScene(new Scene(origBlueEdge));
+			// </code>
+			// */
 
-		/**
-		 * <code> ブラー→フレームとフレーム→ブラー
-		final Image blurFrame = LatentImage.from(origImage).transform(blur).transform(frame).toImage();
-		final Image frameBlur = LatentImage.from(origImage).transform(frame).transform(blur).toImage();
-		final HBox blurAndFrame = new HBox(new ImageView(origImage), new ImageView(blurFrame),
-				new ImageView(frameBlur));
-		primaryStage.setScene(new Scene(blurAndFrame));
-		</code>
-		 */
+			/**
+			 * <code> ブラー→フレームとフレーム→ブラー
+			final Image blurFrame = LatentImage.from(origImage).transform(blur).transform(frame).toImageParallel();
+			final Image frameBlur = LatentImage.from(origImage).transform(frame).transform(blur).toImageParallel();
+			final HBox blurAndFrame = new HBox(new ImageView(origImage), new ImageView(blurFrame),
+					new ImageView(frameBlur));
+			primaryStage.setScene(new Scene(blurAndFrame));
+			 </code>
+			 */
 
-		/**
-		 * <code> エッジ→フレームとフレーム→エッジ
-		final Image edgeFrame = LatentImage.from(origImage).transform(edge).transform(frame).toImage();
-		final Image FrameEdge = LatentImage.from(origImage).transform(frame).transform(edge).toImage();
-		final HBox edgeAndFrame = new HBox(new ImageView(origImage), new ImageView(edgeFrame),
-				new ImageView(FrameEdge));
-		primaryStage.setScene(new Scene(edgeAndFrame));
-		</code>
-		 */
-
+			/**
+			 * <code> エッジ→フレームとフレーム→エッジ
+			final Image edgeFrame = LatentImage.from(origImage).transform(edge).transform(frame).toImageParallel();
+			final Image FrameEdge = LatentImage.from(origImage).transform(frame).transform(edge).toImageParallel();
+			final HBox edgeAndFrame = new HBox(new ImageView(origImage), new ImageView(edgeFrame),
+					new ImageView(FrameEdge));
+			primaryStage.setScene(new Scene(edgeAndFrame));
+			</code>
+			 */
+		} catch (final Exception e) {
+			e.printStackTrace();
+			final TextField error = new TextField(e.toString());
+			primaryStage.setScene(new Scene(error));
+		}
 		primaryStage.show();
 	}
 

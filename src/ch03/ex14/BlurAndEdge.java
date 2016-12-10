@@ -1,4 +1,4 @@
-package ch03.ex13;
+package ch03.ex14;
 
 import java.io.File;
 
@@ -35,7 +35,7 @@ public class BlurAndEdge extends Application {
 				for (int j = 0; j < 3; j++) {
 					final int xx = (x + i) - 1;
 					final int yy = (y + j) - 1;
-					if ((xx < 0) || (xx >= l.getWidth()) || (yy < 0) || (yy >= l.getHeight())) {
+					if ((xx < 0) || (xx >= origImage.getWidth()) || (yy < 0) || (yy >= origImage.getHeight())) {
 						continue;
 					}
 					final Color c = l.getColor(xx, yy);
@@ -64,7 +64,7 @@ public class BlurAndEdge extends Application {
 			for (int i = 0; i < 3; i++) {
 				final int xx = xArray[i];
 				final int yy = yArray[i];
-				if ((xx < 0) || (xx >= l.getWidth()) || (yy < 0) || (yy >= l.getHeight())) {
+				if ((xx < 0) || (xx >= origImage.getWidth()) || (yy < 0) || (yy >= origImage.getHeight())) {
 					continue;
 				}
 				final Color c = l.getColor(xx, yy);
@@ -84,8 +84,9 @@ public class BlurAndEdge extends Application {
 
 		// フレーム
 		final ColorTransformer frame = (x, y,
-				l) -> (x < 10) || (x > (l.getWidth() - 10)) || (y < 10) || (y > (l.getHeight() - 10))
-						? Color.GRAY : l.getColor(x, y);
+				l) -> (x < 10) || (x > (origImage.getWidth() - 10)) || (y < 10) || (y > (origImage.getHeight() - 10))
+						? Color.GRAY
+						: l.getColor(x, y);
 
 		// /**
 		// * <code> ブラー単体とエッジ単体

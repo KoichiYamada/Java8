@@ -18,11 +18,12 @@ import javafx.stage.Stage;
 public class GrayFramer extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		final Image image = new Image(new File("src/ch03/ex12/queen-mary.png").toURI().toString());
 
 		final ColorTransformer f = (x, y,
-				c) -> x < 10 || x > image.getWidth() - 10 || y < 10 || y > image.getHeight() - 10 ? Color.GRAY : c;
+				c) -> (x < 10) || (x > (image.getWidth() - 10)) || (y < 10) || (y > (image.getHeight() - 10))
+						? Color.GRAY : c;
 
 		final Image afterImage = LatentImage.from(image).transform(Color::brighter).transform(f).toImage();
 

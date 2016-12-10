@@ -23,7 +23,7 @@ public class LatentImage {
 	/**
 	 * 遅延操作リスト
 	 */
-	private List<ColorTransformer> pendingOperations = new ArrayList<>();
+	private final List<ColorTransformer> pendingOperations = new ArrayList<>();
 
 	/**
 	 * ファクトリメソッドでの生成専用にするコンストラクタ

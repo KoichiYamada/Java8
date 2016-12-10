@@ -28,11 +28,11 @@ public class Capture {
 	public static void main(final String[] args) {
 		final String[] names = { "Peter", "Paul", "Mary" };
 		final List<Runnable> runners = new ArrayList<>();
-		for (String name : names) {
+		for (final String name : names) {
 			runners.add(() -> System.out.println(name));
 		}
 		// 何がキャプチャされたか出力してみる
-		for (Runnable runnable : runners) {
+		for (final Runnable runnable : runners) {
 			runnable.run();
 		}
 
@@ -43,7 +43,7 @@ public class Capture {
 			runners.add(() -> System.out.println(names[j]));
 		}
 		// 何がキャプチャされたか出力してみる
-		for (Runnable runnable : runners) {
+		for (final Runnable runnable : runners) {
 			runnable.run();
 		}
 	}

@@ -1,12 +1,18 @@
-package ch03.ex13;
+package ch03.ex14;
 
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelFormat;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.paint.Color;
 
 /**
@@ -15,7 +21,7 @@ import javafx.scene.paint.Color;
  *
  * @author 山田晃一
  */
-public class LatentImage {
+public class LatentImage implements PixelReader {
 
 	/**
 	 * 元画像
@@ -125,6 +131,7 @@ public class LatentImage {
 	 *            高さ方向位置
 	 * @return 色
 	 */
+	@Override
 	public Color getColor(final int x, final int y) {
 		final Point2D p = new Point2D(x, y);
 		final Color c;
@@ -155,5 +162,73 @@ public class LatentImage {
 			}
 		}
 		return out;
+	}
+
+	@Override
+	public PixelFormat getPixelFormat() {
+		/**
+		 * 単に委譲しようかと思ったが、transformerを適用すべきなのか？未サポートにしておく。 <code>
+		return in == null ? orig.getPixelReader().getPixelFormat() : in.getPixelFormat();
+		 * </code>
+		 */
+		throw new UnsupportedOperationException("not support");
+	}
+
+	@Override
+	public int getArgb(final int x, final int y) {
+		/**
+		 * 単に委譲しようかと思ったが、transformerを適用すべきなのか？未サポートにしておく。 <code>
+		return in == null ? orig.getPixelReader().getArgb(x, y) : in.getArgb(x, y);
+		 * </code>
+		 */
+		throw new UnsupportedOperationException("not support");
+	}
+
+	@Override
+	public <T extends Buffer> void getPixels(final int x, final int y, final int w, final int h,
+			final WritablePixelFormat<T> pixelformat, final T buffer,
+			final int scanlineStride) {
+		/**
+		 * 単に委譲しようかと思ったが、transformerを適用すべきなのか？未サポートにしておく。 <code>
+		if (in == null) {
+			orig.getPixelReader().getPixels(x, y, w, h, pixelformat, buffer, scanlineStride);
+		} else {
+			in.getPixels(x, y, w, h, pixelformat, buffer, scanlineStride);
+		}
+		 * </code>
+		 */
+		throw new UnsupportedOperationException("not support");
+	}
+
+	@Override
+	public void getPixels(final int x, final int y, final int w, final int h,
+			final WritablePixelFormat<ByteBuffer> pixelformat, final byte[] buffer,
+			final int offset, final int scanlineStride) {
+		/**
+		 * 単に委譲しようかと思ったが、transformerを適用すべきなのか？未サポートにしておく。 <code>
+		if (in == null) {
+			orig.getPixelReader().getPixels(x, y, w, h, pixelformat, buffer, offset, scanlineStride);
+		} else {
+			in.getPixels(x, y, w, h, pixelformat, buffer, offset, scanlineStride);
+		}
+		 * </code>
+		 */
+		throw new UnsupportedOperationException("not support");
+	}
+
+	@Override
+	public void getPixels(final int x, final int y, final int w, final int h,
+			final WritablePixelFormat<IntBuffer> pixelformat, final int[] buffer,
+			final int offset, final int scanlineStride) {
+		/**
+		 * 単に委譲しようかと思ったが、transformerを適用すべきなのか？未サポートにしておく。 <code>
+		if (in == null) {
+			orig.getPixelReader().getPixels(x, y, w, h, pixelformat, buffer, offset, scanlineStride);
+		} else {
+			in.getPixels(x, y, w, h, pixelformat, buffer, offset, scanlineStride);
+		}
+		 * </code>
+		 */
+		throw new UnsupportedOperationException("not support");
 	}
 }

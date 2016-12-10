@@ -1,7 +1,8 @@
-package ch03.ex13;
+package ch03.ex15;
 
 import java.util.function.UnaryOperator;
 
+import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 
 /**
@@ -30,9 +31,9 @@ public interface ColorTransformer {
 	 *            x
 	 * @param y
 	 *            y
-	 * @param image
-	 *            適用すべき画像を持つLatentImage
+	 * @param reader
+	 *            任意の位置のピクセルを読み出すためのリーダー
 	 * @return 新しい色
 	 */
-	Color apply(int x, int y, LatentImage image);
+	Color apply(int x, int y, PixelReader reader);
 }

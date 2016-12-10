@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 public class SimpleBrowser extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		// 部品
 		final WebView webView = new WebView();
 		final WebEngine webEngine = webView.getEngine();
@@ -36,7 +36,7 @@ public class SimpleBrowser extends Application {
 
 		webEngine.getHistory().currentIndexProperty().addListener((p, o, n) -> {
 			backButton.setDisable(n.intValue() <= 0);
-			forwardButton.setDisable(n.intValue() >= webEngine.getHistory().getEntries().size() - 1);
+			forwardButton.setDisable(n.intValue() >= (webEngine.getHistory().getEntries().size() - 1));
 		});
 
 		backButton.setOnAction(e -> webEngine.getHistory().go(-1));
@@ -60,7 +60,7 @@ public class SimpleBrowser extends Application {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 }

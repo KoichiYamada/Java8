@@ -17,21 +17,21 @@ public class HowToMakeIntStream {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		final int[] values = { 1, 4, 9, 16 };
 
 		// Stream.ofはint[]のStreamになる
-		Stream<int[]> stream = Stream.of(values);
+		final Stream<int[]> stream = Stream.of(values);
 		stream.forEach(System.out::println); // 配列型要素が一つだけ出力される
 
 		// intのStreamは次のように作る
-		IntStream intStream1 = IntStream.of(values);
+		final IntStream intStream1 = IntStream.of(values);
 		intStream1.forEach(System.out::println); // intの配列要素が出力される
 
-		IntStream intStream2 = Arrays.stream(values);
+		final IntStream intStream2 = Arrays.stream(values);
 		intStream2.forEach(System.out::println); // intの配列要素が出力される
 
-		Stream<Integer> objStream = IntStream.of(values).boxed();
+		final Stream<Integer> objStream = IntStream.of(values).boxed();
 		objStream.forEach(System.out::println); // intの配列要素が出力される
 	}
 }

@@ -27,7 +27,7 @@ public class FileSorterTest {
 		/**
 		 * ディレクトリであるか。このクラスではディレクトリでないものはファイルとする。
 		 */
-		private boolean isDirectory;
+		private final boolean isDirectory;
 
 		/**
 		 * コンストラクタ

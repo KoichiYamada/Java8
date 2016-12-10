@@ -21,7 +21,7 @@ public interface ColorTransformer {
 	 *            二つ目のColorTransformer
 	 * @return 合成されたColorTransformer
 	 */
-	static ColorTransformer compose(ColorTransformer op1, ColorTransformer op2) {
+	static ColorTransformer compose(final ColorTransformer op1, final ColorTransformer op2) {
 		return (x, y, c) -> op2.apply(x, y, op1.apply(x, y, c));
 	}
 
@@ -32,7 +32,7 @@ public interface ColorTransformer {
 	 *            元のUnaryOperator<Color>
 	 * @return x,yを無視して元と同じ計算をするColorTransformer
 	 */
-	static ColorTransformer toColorTransformer(UnaryOperator<Color> op) {
+	static ColorTransformer toColorTransformer(final UnaryOperator<Color> op) {
 		return (x, y, c) -> op.apply(c);
 	}
 

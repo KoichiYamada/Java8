@@ -31,7 +31,7 @@ public class Filter {
 	 * @throws IOException
 	 *             データファイルの読み取り失敗
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException {
 		final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
 		final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
 

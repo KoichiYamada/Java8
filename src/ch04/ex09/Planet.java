@@ -25,7 +25,7 @@ import javafx.util.Duration;
 public class Planet extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		// 惑星
 		final Circle planet = new Circle();
 		planet.setFill(Color.BLUE);
@@ -73,7 +73,7 @@ public class Planet extends Application {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 }

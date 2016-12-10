@@ -3,7 +3,6 @@ package ch01.ex03;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -22,13 +21,7 @@ public class ListFilesTest {
 		final String extention = ".java";
 
 		// 期待する配列を取得する
-		final String[] expectFiles = new File(directory).list(new FilenameFilter() {
-
-			@Override
-			public boolean accept(final File dir, final String name) {
-				return name.endsWith(extention);
-			}
-		});
+		final String[] expectFiles = new File(directory).list((dir, name) -> name.endsWith(extention));
 
 		// 実装を使って配列を取得する
 		final ListFiles listFiles = new ListFiles();

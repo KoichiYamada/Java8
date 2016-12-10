@@ -20,12 +20,12 @@ public class CenteringBorderPane extends Application {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		final BorderPane pane = new BorderPane();
 
 		// Topノードのセンタリング

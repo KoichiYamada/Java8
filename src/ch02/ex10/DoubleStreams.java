@@ -21,8 +21,8 @@ public class DoubleStreams {
 	 * @return 平均値
 	 */
 	public static double average(final Stream<Double> stream) {
-		AtomicInteger count = new AtomicInteger(0);
-		double sum = stream.reduce(0.0, (t, u) -> {
+		final AtomicInteger count = new AtomicInteger(0);
+		final double sum = stream.reduce(0.0, (t, u) -> {
 			count.getAndIncrement();
 			return t + u;
 		});

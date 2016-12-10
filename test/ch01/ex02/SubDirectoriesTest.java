@@ -19,13 +19,7 @@ public class SubDirectoriesTest {
 	public void testSubDirectoriesByLambda() {
 		// 普通にisDirectoryを呼び出したのと同等の結果が得られていることを確認するため
 		// 比較対象としてisDirectoryの結果を保存する
-		final File[] expectDirectories = new File("./").listFiles(new FileFilter() {
-
-			@Override
-			public boolean accept(final File pathname) {
-				return pathname.isDirectory();
-			}
-		});
+		final File[] expectDirectories = new File("./").listFiles((FileFilter) pathname -> pathname.isDirectory());
 
 		// ラムダの方を呼んでみる
 		final SubDirectories subDirectories = new SubDirectories();
@@ -40,13 +34,7 @@ public class SubDirectoriesTest {
 	public void testSubDirectoriesByFunctionRef() {
 		// 普通にisDirectoryを呼び出したのと同等の結果が得られていることを確認するため
 		// 比較対象としてisDirectoryの結果を保存する
-		final File[] expectDirectories = new File("./").listFiles(new FileFilter() {
-
-			@Override
-			public boolean accept(final File pathname) {
-				return pathname.isDirectory();
-			}
-		});
+		final File[] expectDirectories = new File("./").listFiles((FileFilter) pathname -> pathname.isDirectory());
 
 		// 関数参照の方を呼んでみる
 		final SubDirectories subDirectories = new SubDirectories();

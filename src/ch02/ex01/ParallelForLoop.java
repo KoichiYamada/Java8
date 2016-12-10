@@ -72,7 +72,7 @@ public class ParallelForLoop {
 		for (int i = 0; i < words.size(); i += SEGMENT_SIZE) {
 			// セグメントサイズ分取り出し
 			final List<String> subWords;
-			if (i + SEGMENT_SIZE < words.size()) {
+			if ((i + SEGMENT_SIZE) < words.size()) {
 				subWords = words.subList(i, i + SEGMENT_SIZE);
 			} else {
 				subWords = words.subList(i, words.size());

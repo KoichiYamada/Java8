@@ -22,12 +22,12 @@ public class Observing extends Application {
 	 * @param args
 	 *            引数
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		final Button smaller = new Button("Smaller");
 		final Slider slider = new Slider(0, 100, 100);
 		final Label value = new Label();
