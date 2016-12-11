@@ -9,7 +9,6 @@ import java.util.stream.Stream;
  * @author 山田晃一
  */
 public class CharacterStream {
-
 	/**
 	 * 指定された文字列をCharacterのStreamに変換する
 	 *

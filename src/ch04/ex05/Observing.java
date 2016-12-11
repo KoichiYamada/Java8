@@ -15,7 +15,6 @@ import javafx.stage.Stage;
  * @author 山田晃一
  */
 public class Observing extends Application {
-
 	/**
 	 * エントリポイント
 	 *
@@ -32,23 +31,18 @@ public class Observing extends Application {
 		final Slider slider = new Slider(0, 100, 100);
 		final Label value = new Label();
 		final Button larger = new Button("Larger");
-
 		// Smallerボタンのバインドと動作の設定
 		smaller.disableProperty().bind(LatientBinding.observe(t -> t.doubleValue() <= 0, slider.valueProperty()));
 		smaller.setOnAction(e -> slider.setValue(slider.getValue() - 10));
-
 		// Largerボタンのバインドと動作の設定
 		larger.disableProperty().bind(LatientBinding.observe(t -> t.doubleValue() >= 100, slider.valueProperty()));
 		larger.setOnAction(e -> slider.setValue(slider.getValue() + 10));
-
 		// ラベルのバインド
 		value.textProperty()
 				.bind(LatientBinding.observe(t -> Integer.toString((int) t.doubleValue()), slider.valueProperty()));
-
 		// コンテナの設定
 		final HBox hbox = new HBox(smaller, slider, value, larger);
 		hbox.setAlignment(Pos.CENTER);
-
 		// 表示
 		primaryStage.setScene(new Scene(hbox));
 		primaryStage.show();

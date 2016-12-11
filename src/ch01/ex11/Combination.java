@@ -6,7 +6,6 @@ package ch01.ex11;
  * @author 山田晃一
  */
 public class Combination {
-
 	/**
 	 * <tt>
 	 * abstruct / abstruct
@@ -17,9 +16,7 @@ public class Combination {
 	 * static / static
 	 * </tt>
 	 */
-
 	public class IaJa implements IAbstractF, JAbstractF {
-
 		@Override
 		public void f() {
 			// オーバーライドが必要
@@ -28,7 +25,6 @@ public class Combination {
 	}
 
 	public class IaJd implements IAbstractF, JDefaultF {
-
 		@Override
 		public void f() {
 			// オーバーライドが必要
@@ -37,7 +33,6 @@ public class Combination {
 	}
 
 	public class IaJs implements IAbstractF, JStaticF {
-
 		@Override
 		public void f() {
 			// オーバーライドが必要
@@ -47,7 +42,6 @@ public class Combination {
 	}
 
 	public class IdJd implements IDefaultF, JDefaultF {
-
 		@Override
 		public void f() {
 			// オーバーライドが必要
@@ -79,9 +73,7 @@ public class Combination {
 	 * static / static
 	 * </tt>
 	 */
-
 	public class SaIa extends SAbstractF implements IAbstractF {
-
 		@Override
 		public void f() {
 			// クラス優先なのでSAbstractFのfが生きる
@@ -90,7 +82,6 @@ public class Combination {
 	}
 
 	public class SaId extends SAbstractF implements IDefaultF {
-
 		@Override
 		public void f() {
 			// クラス優先なのでSAbstractFのfが生きる
@@ -99,7 +90,6 @@ public class Combination {
 	}
 
 	public class SaIs extends SAbstractF implements IStaticF {
-
 		@Override
 		public void f() {
 			// ここではInterfaceのstaticメソッドの影響は無いので、
@@ -119,7 +109,6 @@ public class Combination {
 	public class SdIs extends SDefaultF implements IStaticF {
 		// staticメソッドはサブタイプに影響しない
 	}
-
 	// public class SsIa extends SStaticF implements IAbstractF {
 	// コンパイルエラー
 	// staticメソッドとinterfaceのメソッドが競合する
@@ -129,7 +118,6 @@ public class Combination {
 	// コンパイルエラー
 	// staticメソッドとinterfaceのメソッドが競合する
 	// }
-
 	public class SsIs extends SStaticF implements IStaticF {
 		// staticメソッドが被ってもサブタイプには影響しない
 	}

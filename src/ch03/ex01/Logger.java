@@ -11,13 +11,11 @@ import java.util.logging.Level;
  * @author 山田晃一
  */
 public class Logger {
-
 	/**
 	 * 出力するログレベル（これ以上のものが出力される）<br>
 	 * デフォルトはLevel.INFO
 	 */
 	private static Level outputLowerLevel = Level.INFO;
-
 	/**
 	 * 出力先ライター<br>
 	 * デフォルトはSystem.out

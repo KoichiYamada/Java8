@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
  */
 @FunctionalInterface
 public interface ColorTransformer {
-
 	/**
 	 * UnariOperator<Color>をColorTransformerへ変える。
 	 *

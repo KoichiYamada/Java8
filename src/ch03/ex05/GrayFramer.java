@@ -17,7 +17,6 @@ import javafx.stage.Stage;
  * @author 山田晃一
  */
 public class GrayFramer extends Application {
-
 	/**
 	 * イメージを変更する
 	 *

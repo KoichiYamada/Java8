@@ -15,19 +15,16 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class StringArraysSorterTest {
-
 	/**
 	 * テスト対象のStringArraysSorterTest内の各メソッドが実行されたスレッドIDを保管できるように拡張したもの。
 	 *
 	 * @author 山田晃一
 	 */
 	private class StringArraysSorterStub extends StringArraysSorter {
-
 		/**
 		 * テスト本体から取り出すためのsort実行スレッドIDの仮置き場
 		 */
 		public long sortThreadId;
-
 		/**
 		 * テスト本体から取り出すためのcompare実行スレッドIDの仮置き場
 		 */
@@ -53,11 +50,9 @@ public class StringArraysSorterTest {
 		System.out.println(Arrays.toString(stringArraysSorterStub.sort(strings)));
 		final Long sortThreadId = stringArraysSorterStub.sortThreadId;
 		final List<Long> compareThreadIds = stringArraysSorterStub.compareThreadIds;
-
 		// Arrays.sortでは同じスレッドのはず
 		for (final Long compareThreadId : compareThreadIds) {
 			assertEquals(sortThreadId, compareThreadId);
 		}
 	}
-
 }

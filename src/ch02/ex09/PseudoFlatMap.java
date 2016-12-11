@@ -9,7 +9,6 @@ import java.util.stream.Stream;
  * @author 山田晃一
  */
 public class PseudoFlatMap {
-
 	/**
 	 * Optional<T> reduce(BinaryOperator<T> accumulator)を使った実装
 	 *

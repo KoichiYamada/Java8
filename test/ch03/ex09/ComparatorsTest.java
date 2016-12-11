@@ -14,7 +14,6 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class ComparatorsTest {
-
 	private static class TestObj {
 		public final int number;
 		public final String name;
@@ -37,7 +36,6 @@ public class ComparatorsTest {
 	public void testLexicographicComparatorNumberNameValue() {
 		System.out.println("testLexicographicComparatorNumberNameValue");
 		final TestObj[] expect = new TestObj[] { o1, o2, o3, o4 };
-
 		Collections.shuffle(list);
 		list.stream().forEach(e -> System.out.print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
 		System.out.println("--↓--↓--↓--↓--↓--↓--↓--↓--↓--↓--");
@@ -50,7 +48,6 @@ public class ComparatorsTest {
 	public void testLexicographicComparatorNumberValueName() {
 		System.out.println("testLexicographicComparatorNumberValueName");
 		final TestObj[] expect = new TestObj[] { o3, o1, o2, o4 };
-
 		Collections.shuffle(list);
 		list.stream().forEach(e -> System.out.print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
 		System.out.println("--↓--↓--↓--↓--↓--↓--↓--↓--↓--↓--");

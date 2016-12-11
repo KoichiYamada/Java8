@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class BlurAndEdge extends Application {
-
 	/**
 	 * エントリポイント
 	 *
@@ -26,12 +25,10 @@ public class BlurAndEdge extends Application {
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
 		final Image origImage = new Image(new File("src/ch03/ex13/queen-mary.png").toURI().toString());
-
 		// ブラー
 		final ColorTransformer blur = (x, y, l) -> {
 			double r = 0, g = 0, b = 0;
 			int num = 0;
-
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
 					final int xx = (x + i) - 1;
@@ -46,14 +43,11 @@ public class BlurAndEdge extends Application {
 					num++;
 				}
 			}
-
 			final double rr = r / num;
 			final double gg = g / num;
 			final double bb = b / num;
-
 			return Color.color(rr, gg, bb);
 		};
-
 		// エッジ
 		final ColorTransformer edge = (x, y, l) -> {
 			double r = 0, g = 0, b = 0;
@@ -61,7 +55,6 @@ public class BlurAndEdge extends Application {
 			// (x,y-1), (x-1,y), (x+1,y), (x,y+1)
 			final int xArray[] = { x, x - 1, x + 1, x };
 			final int yArray[] = { y - 1, y, y, y + 1 };
-
 			for (int i = 0; i < 3; i++) {
 				final int xx = xArray[i];
 				final int yy = yArray[i];
@@ -74,21 +67,17 @@ public class BlurAndEdge extends Application {
 				b += c.getBlue();
 				num++;
 			}
-
 			final Color c = l.getColor(x, y);
 			final double rr = round((num * c.getRed()) - r);
 			final double gg = round((num * c.getGreen()) - g);
 			final double bb = round((num * c.getBlue()) - b);
-
 			return Color.color(rr, gg, bb);
 		};
-
 		// フレーム
 		final ColorTransformer frame = (x, y,
 				l) -> (x < 10) || (x > (origImage.getWidth() - 10)) || (y < 10) || (y > (origImage.getHeight() - 10))
 						? Color.GRAY
 						: l.getColor(x, y);
-
 		try {
 			// /**
 			// * <code> ブラー単体とエッジ単体
@@ -99,7 +88,6 @@ public class BlurAndEdge extends Application {
 			primaryStage.setScene(new Scene(origBlueEdge));
 			// </code>
 			// */
-
 			/**
 			 * <code> ブラー→フレームとフレーム→ブラー
 			final Image blurFrame = LatentImage.from(origImage).transform(blur).transform(frame).toImageParallel();
@@ -109,7 +97,6 @@ public class BlurAndEdge extends Application {
 			primaryStage.setScene(new Scene(blurAndFrame));
 			 </code>
 			 */
-
 			/**
 			 * <code> エッジ→フレームとフレーム→エッジ
 			final Image edgeFrame = LatentImage.from(origImage).transform(edge).transform(frame).toImageParallel();

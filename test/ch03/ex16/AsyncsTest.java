@@ -6,10 +6,10 @@ import org.junit.Test;
 
 /**
  * Asyncsのテスト
+ *
  * @author 山田晃一
  */
 public class AsyncsTest {
-
 	@Test
 	public void testDoInOrderAsync() {
 		Asyncs.doInOrderAsync(() -> Integer.valueOf(5), (i, t) -> {

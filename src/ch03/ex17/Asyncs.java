@@ -1,4 +1,4 @@
-package ch03.ex16;
+package ch03.ex17;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -10,6 +10,34 @@ import java.util.function.Supplier;
  * @author 山田晃一
  */
 public class Asyncs {
+	/**
+	 * firstとsecondを並列に処理し、どちらかで例外が発生したらhandlerを呼び出す。
+	 *
+	 * @param first
+	 *            第一処理
+	 * @param second
+	 *            第二処理
+	 * @param handler
+	 *            第一、第二処理で発生する例外のハンドラ
+	 */
+	public static <T> void doInParallelAsync(final Runnable first, final Runnable second,
+			final Consumer<Throwable> handler) {
+		new Thread(() -> {
+			try {
+				first.run();
+			} catch (final Throwable t) {
+				handler.accept(t);
+			}
+		}).start();
+		new Thread(() -> {
+			try {
+				second.run();
+			} catch (final Throwable t) {
+				handler.accept(t);
+			}
+		}).start();
+	}
+
 	/**
 	 * firstの処理結果をsecondで処理する。firstの例外はsecondで、secondの例外はhandlerで処理する。
 	 * <p>

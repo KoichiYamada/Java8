@@ -8,7 +8,6 @@ import java.util.Comparator;
  * @author 山田晃一
  */
 public class ComparatorFactory {
-
 	/**
 	 * 辞書順のStringのComparatorを返す。compareToと同じ。
 	 *

@@ -13,12 +13,10 @@ import java.util.List;
  * @author 山田晃一
  */
 public class StreamBenchmark {
-
 	/**
 	 * カウントする単語の長さ（これより長いものをカウントする）
 	 */
 	private static int COUNT_WORD_LENGTH = 12;
-
 	/**
 	 * データファイルのパス
 	 */

@@ -12,7 +12,6 @@ import java.util.stream.Stream;
  * @author 山田晃一
  */
 public class DoubleStreams {
-
 	/**
 	 * 平均を求める。
 	 *

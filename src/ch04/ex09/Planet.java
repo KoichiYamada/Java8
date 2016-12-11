@@ -23,7 +23,6 @@ import javafx.util.Duration;
  * @author 山田晃一
  */
 public class Planet extends Application {
-
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
 		// 惑星
@@ -33,24 +32,20 @@ public class Planet extends Application {
 				.bind(Bindings.min(primaryStage.widthProperty(), primaryStage.heightProperty()).divide(20));
 		planet.centerXProperty().bind(primaryStage.widthProperty().divide(2));
 		planet.centerYProperty().bind(primaryStage.heightProperty().divide(2));
-
 		// 起動
 		final Ellipse path = new Ellipse();
 		path.radiusXProperty().bind(primaryStage.widthProperty().divide(3));
 		path.radiusYProperty().bind(primaryStage.heightProperty().divide(3));
 		path.centerXProperty().bind(primaryStage.widthProperty().divide(2));
 		path.centerYProperty().bind(primaryStage.heightProperty().divide(2));
-
 		// アニメーション
 		final PathTransition anime = new PathTransition(Duration.seconds(2), path, planet);
 		anime.setCycleCount(Animation.INDEFINITE);
 		anime.setInterpolator(Interpolator.LINEAR);
 		anime.play();
-
 		// パスの変更は再スタートしないと反映されない
 		primaryStage.widthProperty().addListener((p, o, n) -> restartAnime(anime));
 		primaryStage.heightProperty().addListener((p, o, n) -> restartAnime(anime));
-
 		// 表示
 		primaryStage.setScene(new Scene(new BorderPane(planet)));
 		primaryStage.show();

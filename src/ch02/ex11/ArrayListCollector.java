@@ -20,7 +20,6 @@ import java.util.stream.Stream;
  * @author 山田晃一
  */
 public class ArrayListCollector {
-
 	/**
 	 * データファイルのパス
 	 */
@@ -37,7 +36,6 @@ public class ArrayListCollector {
 	public static void main(final String[] argv) throws IOException {
 		final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
 		final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
-
 		final List<String> result = ArrayListCollector.collect(words.stream().parallel(), words.size());
 		result.stream().limit(100).forEach(System.out::println);
 	}
@@ -54,9 +52,7 @@ public class ArrayListCollector {
 	public static <T> ArrayList<T> collect(final Stream<T> stream, final int num) {
 		final ArrayList<T> result = new ArrayList<>(num);
 		final List<T> list = Collections.synchronizedList(result);
-
 		stream.collect(Collector.of(() -> list, (c, e) -> c.add(e), (a, b) -> list, Characteristics.IDENTITY_FINISH));
-
 		return result;
 	}
 }

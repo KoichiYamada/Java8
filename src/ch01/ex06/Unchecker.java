@@ -6,14 +6,12 @@ import java.util.concurrent.Callable;
  * Ｑ：なぜ、RunnableExの代わりにCallable<Void>を使用できないのでしょうか。
  * Ａ：処理本体に不必要なreturn文を書かなければいけなくなるから。
  */
-
 /**
  * Runnableの例外チェックを不要にするユーティリティメソッドを持つクラス
  *
  * @author 山田晃一
  */
 public class Unchecker {
-
 	/**
 	 * RunnableExを使うバージョン
 	 *

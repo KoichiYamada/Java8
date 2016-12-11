@@ -15,17 +15,14 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class LoggerTest {
-
 	@Test
 	public void testLogIf() throws IOException {
 		final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		final OutputStreamWriter outputStreamWriter = new OutputStreamWriter(byteArrayOutputStream);
 		final String expectMessage = "test log string";
-
 		Logger.setOutputStreamWriter(outputStreamWriter);
 		Logger.logIf(Level.INFO, () -> expectMessage);
 		outputStreamWriter.flush();
-
 		assertTrue(expectMessage.equals(byteArrayOutputStream.toString()));
 	}
 
@@ -35,14 +32,12 @@ public class LoggerTest {
 		final OutputStreamWriter outputStreamWriter = new OutputStreamWriter(byteArrayOutputStream);
 		final String expectMessage = "test log string";
 		final boolean[] called = new boolean[1];
-
 		Logger.setOutputStreamWriter(outputStreamWriter);
 		Logger.logIf(Level.CONFIG, () -> {
 			called[0] = true;
 			return expectMessage;
 		});
 		outputStreamWriter.flush();
-
 		assertFalse(called[0]);
 		assertTrue(byteArrayOutputStream.toString().isEmpty());
 	}

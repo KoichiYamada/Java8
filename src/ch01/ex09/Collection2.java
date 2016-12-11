@@ -9,12 +9,10 @@ import java.util.function.Predicate;
  * コレクション２ 指定された名前なので２は仕方がない。
  *
  * @author 山田晃一
- *
  * @param <T>
  *            このコレクションが保持する要素の型
  */
 public interface Collection2<T> extends Collection<T> {
-
 	/**
 	 * filterがtrueを返す要素にactionを適用する
 	 *

@@ -12,11 +12,9 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class CharacterStreamTest {
-
 	@Test
 	public void testCharacterStream() {
 		final Stream<Character> acctual = CharacterStream.characterStream("こんにちは");
-
 		// 評価方法がいまいち
 		assertTrue(acctual.allMatch(c -> "こんにちは".indexOf(c) != -1));
 	}

@@ -9,7 +9,6 @@ import java.util.Arrays;
  * @author 山田晃一
  */
 public class FileSorter {
-
 	/**
 	 * 与えられたFile配列を、ディレクトリ優先の辞書順でソートする。
 	 *

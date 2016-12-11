@@ -7,12 +7,10 @@ package ch03.ex03;
  * Java 8 では、ラムダ式を使ってなんとかしようとしても、結局 if 文が必要になり、言語機能としての
  * 実装を超えることは出来ない。
  */
-
 /**
  * assertはライブラリとして実装出来ない
  *
  * @author 山田晃一
  */
 public class AssertUtil {
-
 }

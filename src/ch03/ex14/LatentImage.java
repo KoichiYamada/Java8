@@ -22,32 +22,26 @@ import javafx.scene.paint.Color;
  * @author 山田晃一
  */
 public class LatentImage implements PixelReader {
-
 	/**
 	 * 元画像
 	 */
 	private Image orig;
-
 	/**
 	 * 前段階の画像
 	 */
 	private LatentImage in;
-
 	/**
 	 * 今段階の操作
 	 */
 	private ColorTransformer transformer;
-
 	/**
 	 * 画像の幅キャッシュ
 	 */
 	private Double width;
-
 	/**
 	 * 画像の高さキャッシュ
 	 */
 	private Double height;
-
 	/**
 	 * 色のキャッシュ
 	 */
@@ -57,7 +51,6 @@ public class LatentImage implements PixelReader {
 	 * ファクトリメソッドでの生成専用にするコンストラクタ
 	 */
 	private LatentImage() {
-
 	}
 
 	/**
@@ -135,14 +128,12 @@ public class LatentImage implements PixelReader {
 	public Color getColor(final int x, final int y) {
 		final Point2D p = new Point2D(x, y);
 		final Color c;
-
 		if (colorCache.containsKey(p)) {
 			c = colorCache.get(p);
 		} else {
 			c = in == null ? orig.getPixelReader().getColor(x, y) : transformer.apply(x, y, in);
 			colorCache.put(p, c);
 		}
-
 		return c;
 	}
 

@@ -10,28 +10,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /*
  * 並行ループは以下の通り。
- *
  * Ｑ：カウンターを更新するためにスレッドを使用したくないのはなぜか
  * Ａ：カウンターの排他を取らなければならなくなるから。スレッドの終了を待たなければならなくなるから。
  */
-
 /**
  * 並行ループ
  *
  * @author 山田晃一
  */
 public class ParallelForLoop {
-
 	/**
 	 * セグメントサイズ
 	 */
 	private static int SEGMENT_SIZE = 100;
-
 	/**
 	 * カウントする単語の長さ（これより長いものをカウントする）
 	 */
 	private static int COUNT_WORD_LENGTH = 12;
-
 	/**
 	 * データファイルのパス
 	 */
@@ -68,7 +63,6 @@ public class ParallelForLoop {
 	public static int countLongWordFrom(final List<String> words) throws InterruptedException {
 		final AtomicInteger count = new AtomicInteger(0);
 		final List<Thread> threads = new ArrayList<>();
-
 		for (int i = 0; i < words.size(); i += SEGMENT_SIZE) {
 			// セグメントサイズ分取り出し
 			final List<String> subWords;
@@ -77,7 +71,6 @@ public class ParallelForLoop {
 			} else {
 				subWords = words.subList(i, words.size());
 			}
-
 			// セグメントを処理するスレッドを起動
 			final Thread thread = new Thread(() -> {
 				int subCount = 0;
@@ -92,12 +85,10 @@ public class ParallelForLoop {
 			thread.start();
 			threads.add(thread);
 		}
-
 		// 全セグメントの終了を待つ
 		for (final Thread t : threads) {
 			t.join();
 		}
-
 		return count.get();
 	}
 }

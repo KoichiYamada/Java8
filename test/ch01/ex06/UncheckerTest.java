@@ -8,10 +8,8 @@ import org.junit.Test;
  * Uncheckerのテストクラス
  *
  * @author 山田晃一
- *
  */
 public class UncheckerTest {
-
 	@Test
 	public void testUncheck() throws InterruptedException {
 		// 1000msのsleep中にinterruptをかけて例外を発生させる
@@ -56,5 +54,4 @@ public class UncheckerTest {
 		Thread.sleep(200);
 		thread.interrupt();
 	}
-
 }

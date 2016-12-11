@@ -8,7 +8,6 @@ import java.util.Arrays;
  * @author 山田晃一
  */
 public class StringArraysSorter {
-
 	/**
 	 * 引数stringsに指定された配列をソートする。
 	 *

@@ -8,7 +8,6 @@ import java.util.stream.Stream;
  * @author 山田晃一
  */
 public class RandomStream {
-
 	/**
 	 * エントリポイント
 	 *

@@ -14,7 +14,6 @@ import javafx.stage.Stage;
  * @author 山田晃一
  */
 public class TextInput extends Application {
-
 	/**
 	 * 下位互換エントリポイント
 	 *

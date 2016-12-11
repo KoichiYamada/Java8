@@ -12,12 +12,10 @@ import java.util.List;
  * @author 山田晃一
  */
 public class Filter {
-
 	/**
 	 * カウントする単語の長さ（これより長いものをカウントする）
 	 */
 	private static int COUNT_WORD_LENGTH = 12;
-
 	/**
 	 * データファイルのパス
 	 */
@@ -34,7 +32,6 @@ public class Filter {
 	public static void main(final String[] args) throws IOException {
 		final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
 		final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
-
 		words.stream().filter(w -> {
 			// 呼ばれるたびに出すと出すぎて分からなくなるので、trueの時だけ出力
 			if (w.length() > COUNT_WORD_LENGTH) {

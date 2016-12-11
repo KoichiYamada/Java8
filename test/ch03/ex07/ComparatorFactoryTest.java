@@ -12,7 +12,6 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class ComparatorFactoryTest {
-
 	@Test
 	public void testCreate() {
 		final Comparator<String> c = ComparatorFactory.create();
@@ -52,5 +51,4 @@ public class ComparatorFactoryTest {
 		assertEquals(1, c.compare(" a b", "aB c "));
 		assertEquals(-1, c.compare(" ab c", "a B "));
 	}
-
 }

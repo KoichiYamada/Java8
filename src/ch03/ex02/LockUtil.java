@@ -8,7 +8,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author 山田晃一
  */
 public class LockUtil {
-
 	/**
 	 * リエントラントロック／アンロックを処理の前後に行うユーティリティメソッド
 	 *

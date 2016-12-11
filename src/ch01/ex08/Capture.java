@@ -11,14 +11,12 @@ import java.util.List;
  * Ｑ：従来のループを使用するとどうなるか。
  * Ａ：変わらない。
  */
-
 /**
  * キャプチャの確認クラス
  *
  * @author 山田晃一
  */
 public class Capture {
-
 	/**
 	 * メイン
 	 *
@@ -35,7 +33,6 @@ public class Capture {
 		for (final Runnable runnable : runners) {
 			runnable.run();
 		}
-
 		// クリアして配列アクセスの場合どうなるか見る
 		runners.clear();
 		for (int i = 0; i < names.length; i++) {

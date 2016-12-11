@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
  */
 @FunctionalInterface
 public interface ColorTransformer {
-
 	/**
 	 * 指定位置の色を返す
 	 *

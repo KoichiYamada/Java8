@@ -16,14 +16,12 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class FileSorterTest {
-
 	/**
 	 * Fileのスタブ
 	 *
 	 * @author 山田晃一
 	 */
 	private class FileStub extends File {
-
 		/**
 		 * ディレクトリであるか。このクラスではディレクトリでないものはファイルとする。
 		 */
@@ -70,7 +68,6 @@ public class FileSorterTest {
 		// シャッフルしてソートのソースとする
 		final List<File> sourceFileList = new ArrayList<>(expectedFileList);
 		Collections.shuffle(sourceFileList);
-
 		// 実際に使うのはリストじゃなくて配列なので変換する
 		final File[] expectedFileArray = expectedFileList.toArray(new File[expectedFileList.size()]);
 		final File[] sourceFileArray = sourceFileList.toArray(new File[sourceFileList.size()]);
@@ -78,14 +75,11 @@ public class FileSorterTest {
 		System.out.println("shuffle " + Arrays.toString(sourceFileArray));
 		// シャッフルされていることを確認する
 		assertFalse(Arrays.equals(expectedFileArray, sourceFileArray));
-
 		// ソートしてみる
 		final FileSorter fileSorter = new FileSorter();
 		fileSorter.sort(sourceFileArray);
 		System.out.println("sorted  " + Arrays.toString(sourceFileArray));
-
 		// 期待通りに並べた配列と同じになっているはず
 		assertTrue(Arrays.equals(expectedFileArray, sourceFileArray));
 	}
-
 }

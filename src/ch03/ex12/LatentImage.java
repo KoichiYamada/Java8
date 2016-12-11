@@ -14,12 +14,10 @@ import javafx.scene.paint.Color;
  * @author 山田晃一
  */
 public class LatentImage {
-
 	/**
 	 * 元画像
 	 */
 	private Image in;
-
 	/**
 	 * 遅延操作リスト
 	 */
@@ -29,7 +27,6 @@ public class LatentImage {
 	 * ファクトリメソッドでの生成専用にするコンストラクタ
 	 */
 	private LatentImage() {
-
 	}
 
 	/**

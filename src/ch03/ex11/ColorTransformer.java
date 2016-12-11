@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
  */
 @FunctionalInterface
 public interface ColorTransformer {
-
 	/**
 	 * 二つのColorTransformerを合成する。
 	 *

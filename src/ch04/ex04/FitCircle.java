@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * @author 山田晃一
  */
 public class FitCircle extends Application {
-
 	/**
 	 * エントリポイント
 	 *

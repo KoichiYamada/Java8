@@ -9,7 +9,6 @@ import java.util.Comparator;
  * @author 山田晃一
  */
 public class Comparators {
-
 	/**
 	 * 与えられたフィールド名の順序で比較を行うComparetorを返す。
 	 *

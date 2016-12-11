@@ -12,7 +12,6 @@ import javafx.beans.value.ObservableValueBase;
  * @author 山田晃一
  */
 public class LatientBinding {
-
 	/**
 	 * バインドするプロパティが一つの計算型プロパティを返す
 	 *
@@ -24,7 +23,6 @@ public class LatientBinding {
 	 */
 	public static <T, R> ObservableValue<R> observe(final Function<T, R> f, final ObservableValue<T> t) {
 		return new ObservableValueBase<R>() {
-
 			{
 				t.addListener((p, o, n) -> fireValueChangedEvent());
 				t.addListener(o -> fireValueChangedEvent());
@@ -51,7 +49,6 @@ public class LatientBinding {
 	public static <T, U, R> ObservableValue<R> observe(final BiFunction<T, U, R> f, final ObservableValue<T> t,
 			final ObservableValue<U> u) {
 		return new ObservableValueBase<R>() {
-
 			{
 				t.addListener((p, o, n) -> fireValueChangedEvent());
 				t.addListener(o -> fireValueChangedEvent());

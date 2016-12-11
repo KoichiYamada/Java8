@@ -22,32 +22,26 @@ import javafx.scene.paint.Color;
  * @author 山田晃一
  */
 public class LatentImage implements PixelReader {
-
 	/**
 	 * 元画像
 	 */
 	private Image orig;
-
 	/**
 	 * 前段階の画像
 	 */
 	private LatentImage in;
-
 	/**
 	 * 今段階の操作
 	 */
 	private ColorTransformer transformer;
-
 	/**
 	 * 画像の幅キャッシュ
 	 */
 	private double width;
-
 	/**
 	 * 画像の高さキャッシュ
 	 */
 	private double height;
-
 	/**
 	 * 色のキャッシュ
 	 */
@@ -57,7 +51,6 @@ public class LatentImage implements PixelReader {
 	 * ファクトリメソッドでの生成専用にするコンストラクタ
 	 */
 	private LatentImage() {
-
 	}
 
 	/**
@@ -152,14 +145,12 @@ public class LatentImage implements PixelReader {
 	@Override
 	public Color getColor(final int x, final int y) {
 		final Color c;
-
 		if (colorCache[x][y] == null) {
 			c = in == null ? orig.getPixelReader().getColor(x, y) : transformer.apply(x, y, in);
 			colorCache[x][y] = c;
 		} else {
 			c = colorCache[x][y];
 		}
-
 		return c;
 	}
 
@@ -194,13 +185,10 @@ public class LatentImage implements PixelReader {
 		final Color[][] colors = new Color[width][height];
 		final int n = Runtime.getRuntime().availableProcessors();
 		final int b = (int) Math.ceil(height / n);
-
 		final ExecutorService pool = Executors.newCachedThreadPool();
-
 		for (int i = 0; i < n; i++) {
 			final int fromY = b * i;
 			final int toY = (fromY + b) > height ? height : fromY + b;
-
 			pool.submit(() -> {
 				for (int x = 0; x < width; x++) {
 					for (int y = fromY; y < toY; y++) {
@@ -210,10 +198,8 @@ public class LatentImage implements PixelReader {
 				}
 			});
 		}
-
 		pool.shutdown();
 		pool.awaitTermination(10, TimeUnit.MINUTES);
-
 		final WritableImage out = new WritableImage(width, height);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {

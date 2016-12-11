@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
  */
 @FunctionalInterface
 public interface ColorTransformer {
-
 	/**
 	 * 画像に指定した線幅と色でフレームをつけるためのColorTransformerファクトリメソッド
 	 *

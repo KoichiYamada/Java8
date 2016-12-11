@@ -7,15 +7,12 @@ import javafx.beans.property.StringProperty;
  * 初めて取得されたときと、設定されたときに生成されるプロパティ
  *
  * @author 山田晃一
- *
  */
 public class LatentProperty {
-
 	/**
 	 * プロパティが生成されるまでの間使う変数
 	 */
 	private String text;
-
 	/**
 	 * 遅延生成されるプロパティ
 	 */

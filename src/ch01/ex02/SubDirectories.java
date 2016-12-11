@@ -8,7 +8,6 @@ import java.io.File;
  * @author 山田晃一
  */
 public class SubDirectories {
-
 	/**
 	 * 指定されたフォルダのサブディレクトリをラムダによって列挙する
 	 *

@@ -18,7 +18,6 @@ import javafx.stage.Stage;
  * @author 山田晃一
  */
 public class BiArgTransformer extends Application {
-
 	/**
 	 * イメージに引数を二つ取る関数を適用する
 	 *

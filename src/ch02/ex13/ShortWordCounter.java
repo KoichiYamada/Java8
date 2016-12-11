@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  * @author 山田晃一
  */
 public class ShortWordCounter {
-
 	/**
 	 * データファイルのパス
 	 */
@@ -31,10 +30,8 @@ public class ShortWordCounter {
 	public static void main(final String[] argv) throws IOException {
 		final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
 		final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
-
 		final Map<Integer, Long> shortWords = words.parallelStream().filter(s -> s.length() < 12)
 				.collect(Collectors.groupingByConcurrent(String::length, Collectors.counting()));
-
 		System.out.println(Arrays.toString(shortWords.values().toArray()));
 	}
 }

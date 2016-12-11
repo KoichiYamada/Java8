@@ -11,26 +11,22 @@ import org.junit.Test;
  * Ｑ：どのような場面で、そのメソッドを活用できるでしょうか。
  * Ａ：条件に一致する要素からなる新しいリストを作る。
  */
-
 /**
  * Collection2のテストクラス 兼 練習問題への回答
  *
  * @author
  */
 public class Collection2Test {
-
 	/**
 	 * レポート提出状況を管理する
 	 *
 	 * @author
 	 */
 	private class ReportHandIn {
-
 		/**
 		 * 提出者名
 		 */
 		private final String reporterName;
-
 		/**
 		 * 提出状況
 		 */
@@ -82,7 +78,6 @@ public class Collection2Test {
 	 * @author
 	 */
 	private class Reports extends ArrayList<ReportHandIn> implements Collection2<ReportHandIn> {
-
 	}
 
 	@Test
@@ -101,10 +96,8 @@ public class Collection2Test {
 		reports.add(report3);
 		reports.add(report4);
 		reports.add(report5);
-
 		// 未提出者リスト
 		final List<ReportHandIn> notHandedIn = new ArrayList<>();
-
 		// forEachIfで未提出者だけ取り出して未提出者リストへ
 		reports.forEachIf(e -> {
 			System.out.println(e.getReporterName() + " isn't handed in.");
@@ -112,7 +105,6 @@ public class Collection2Test {
 		}, e -> {
 			return !e.isHandedIn();
 		});
-
 		// 正しく取り出せているかチェック
 		assertEquals(3, notHandedIn.size());
 		assertFalse(notHandedIn.contains(report1));

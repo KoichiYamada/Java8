@@ -6,7 +6,6 @@ package ch01.ex07;
  * @author 山田晃一
  */
 public class AndThen {
-
 	/**
 	 * メイン
 	 *
@@ -41,5 +40,4 @@ public class AndThen {
 			second.run();
 		};
 	}
-
 }

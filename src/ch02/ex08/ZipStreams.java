@@ -10,7 +10,6 @@ import java.util.stream.Stream.Builder;
  * @author 山田晃一
  */
 public class ZipStreams {
-
 	/**
 	 * 二つのストリームを交互にマージして返す。どちらかの要素がなくなったらそこで停止する。
 	 *
@@ -24,7 +23,6 @@ public class ZipStreams {
 		final Builder<T> builder = Stream.builder();
 		final Iterator<T> firstIterator = first.iterator();
 		final Iterator<T> secondIterator = second.iterator();
-
 		while (firstIterator.hasNext()) {
 			builder.add(firstIterator.next());
 			if (!secondIterator.hasNext()) {
@@ -32,7 +30,6 @@ public class ZipStreams {
 			}
 			builder.add(secondIterator.next());
 		}
-
 		return builder.build();
 	}
 }

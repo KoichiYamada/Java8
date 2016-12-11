@@ -29,14 +29,11 @@ import javafx.stage.Stage;
  * @author 山田晃一
  */
 public class NodeBorder extends Application {
-
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
 		final double rem = new Text("").getLayoutBounds().getHeight();
-
 		final GridPane pane = new GridPane();
 		// pane.setGridLinesVisible(true);
-
 		pane.setHgap(0.8 * rem);
 		pane.setVgap(0.8 * rem);
 		pane.setPadding(new Insets(0.8 * rem));
@@ -44,34 +41,27 @@ public class NodeBorder extends Application {
 		final Label passwordLabel = new Label("Password:");
 		final TextField username = new TextField();
 		final PasswordField password = new PasswordField();
-
 		// ラベルとフィールドに境界を描画するコード
 		usernameLabel.setBorder(createBorderWithColor("red"));
 		passwordLabel.setBorder(createBorderWithColor("red"));
 		username.setBorder(createBorderWithColor("red"));
 		password.setBorder(createBorderWithColor("red"));
-
 		final Button okButton = new Button("Ok");
 		final Button cancelButton = new Button("Cancel");
-
 		// ボタンに境界を描画するコード
 		okButton.setBorder(createBorderWithColor("red"));
 		cancelButton.setBorder(createBorderWithColor("red"));
-
 		final HBox buttons = new HBox(0.8 * rem);
 		buttons.getChildren().addAll(okButton, cancelButton);
 		buttons.setAlignment(Pos.CENTER);
 		// buttons.setStyle("-fx-border-color: red;");
-
 		// HBoxの境界を描画するコード
 		buttons.setBorder(createBorderWithColor("blue"));
-
 		pane.add(usernameLabel, 0, 0);
 		pane.add(username, 1, 0);
 		pane.add(passwordLabel, 0, 1);
 		pane.add(password, 1, 1);
 		pane.add(buttons, 0, 2, 2, 1);
-
 		GridPane.setHalignment(usernameLabel, HPos.RIGHT);
 		GridPane.setHalignment(passwordLabel, HPos.RIGHT);
 		primaryStage.setScene(new Scene(pane));
