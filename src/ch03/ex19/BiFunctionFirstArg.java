@@ -9,10 +9,10 @@ package ch03.ex19;
  * １．
  * U result = identity;
  * for (T element : this stream)
- *     result = accumulator.apply(result, element)
+ *     result = accumulator.apply(result, element) ←ダウンキャスト
  * return result;
  * ２．
- * combiner.apply(u, accumulator.apply(identity, t)) == accumulator.apply(u, t)
+ * combiner.apply(u, accumulator.apply(identity, t)) == accumulator.apply(u, t) ←左辺第二引数がダウンキャスト
  * </pre>
  */
 public class BiFunctionFirstArg {
