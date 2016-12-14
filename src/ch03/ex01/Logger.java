@@ -2,6 +2,7 @@ package ch03.ex01;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 
@@ -52,10 +53,10 @@ public class Logger {
 	 * @throws IOException
 	 *             出力先に書き込めない
 	 */
-	public static void logIf(final Level level, final Supplier<Boolean> criteria, final Supplier<String> message)
+	public static void logIf(final Level level, final BooleanSupplier criteria, final Supplier<String> message)
 			throws IOException {
 		if (level.intValue() >= outputLowerLevel.intValue()) {
-			if (criteria.get()) {
+			if (criteria.getAsBoolean()) {
 				os.write(message.get());
 			}
 		}
