@@ -52,9 +52,12 @@ public class Logger {
 	 * @throws IOException
 	 *             出力先に書き込めない
 	 */
-	public static void logIf(final Level level, final Supplier<String> message) throws IOException {
+	public static void logIf(final Level level, final Supplier<Boolean> criteria, final Supplier<String> message)
+			throws IOException {
 		if (level.intValue() >= outputLowerLevel.intValue()) {
-			os.write(message.get());
+			if (criteria.get()) {
+				os.write(message.get());
+			}
 		}
 	}
 }

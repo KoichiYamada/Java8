@@ -16,8 +16,8 @@ import org.junit.Test;
 public class MapsTest {
 	@Test
 	public void testMapFutureOfTFunctionOfTU() throws InterruptedException, ExecutionException {
-		FutureTask<String> s = new FutureTask<>(() -> "5");
-		Future<Integer> i = Maps.map(s, Integer::valueOf);
+		final FutureTask<String> s = new FutureTask<>(() -> "5");
+		final Future<Integer> i = Maps.map(s, Integer::valueOf);
 		new Thread(s).start();
 		assertEquals(5, i.get().intValue());
 	}

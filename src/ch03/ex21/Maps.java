@@ -23,10 +23,10 @@ public class Maps {
 	 *            処理する関数
 	 * @return 処理結果のFuture
 	 */
-	public static <T, U> Future<U> map(Future<T> t, Function<T, U> u) {
+	public static <T, U> Future<U> map(final Future<T> t, final Function<T, U> u) {
 		return new Future<U>() {
 			@Override
-			public boolean cancel(boolean mayInterruptIfRunning) {
+			public boolean cancel(final boolean mayInterruptIfRunning) {
 				return t.cancel(mayInterruptIfRunning);
 			}
 
@@ -46,7 +46,7 @@ public class Maps {
 			}
 
 			@Override
-			public U get(long timeout, TimeUnit unit)
+			public U get(final long timeout, final TimeUnit unit)
 					throws InterruptedException, ExecutionException, TimeoutException {
 				return u.apply(t.get(timeout, unit));
 			}
