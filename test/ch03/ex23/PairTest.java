@@ -10,11 +10,11 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class PairTest {
-	@Test
-	public void testMap() {
-		final Pair<Integer> i = new Pair<>(1, 2);
-		final Pair<String> s = i.map(String::valueOf);
-		assertTrue("1".equals(s.getFirst()));
-		assertTrue("2".equals(s.getSecond()));
-	}
+    @Test
+    public void testMap() {
+        final Pair<Integer> i = new Pair<>(1, 2);
+        final Pair<String> s = i.map(String::valueOf);
+        assertTrue("1".equals(s.getFirst()));
+        assertTrue("2".equals(s.getSecond()));
+    }
 }

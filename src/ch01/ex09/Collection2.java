@@ -13,21 +13,21 @@ import java.util.function.Predicate;
  *            このコレクションが保持する要素の型
  */
 public interface Collection2<T> extends Collection<T> {
-	/**
-	 * filterがtrueを返す要素にactionを適用する
-	 *
-	 * @param action
-	 *            適用するアクション
-	 * @param filter
-	 *            アクションを適用すべき要素にtrueを返すフィルター
-	 */
-	default void forEachIf(final Consumer<T> action, final Predicate<T> filter) {
-		final Iterator<T> ite = iterator();
-		while (ite.hasNext()) {
-			final T elm = ite.next();
-			if (filter.test(elm)) {
-				action.accept(elm);
-			}
-		}
-	}
+    /**
+     * filterがtrueを返す要素にactionを適用する
+     *
+     * @param action
+     *            適用するアクション
+     * @param filter
+     *            アクションを適用すべき要素にtrueを返すフィルター
+     */
+    default void forEachIf(final Consumer<T> action, final Predicate<T> filter) {
+        final Iterator<T> ite = iterator();
+        while (ite.hasNext()) {
+            final T elm = ite.next();
+            if (filter.test(elm)) {
+                action.accept(elm);
+            }
+        }
+    }
 }

@@ -14,75 +14,75 @@ import javafx.scene.paint.Color;
  * @author 山田晃一
  */
 public class LatentImage {
-	/**
-	 * 元画像
-	 */
-	private Image in;
-	/**
-	 * 遅延操作リスト
-	 */
-	private final List<ColorTransformer> pendingOperations = new ArrayList<>();
+    /**
+     * 元画像
+     */
+    private Image in;
+    /**
+     * 遅延操作リスト
+     */
+    private final List<ColorTransformer> pendingOperations = new ArrayList<>();
 
-	/**
-	 * ファクトリメソッドでの生成専用にするコンストラクタ
-	 */
-	private LatentImage() {
-	}
+    /**
+     * ファクトリメソッドでの生成専用にするコンストラクタ
+     */
+    private LatentImage() {
+    }
 
-	/**
-	 * ファクトリメソッド
-	 *
-	 * @param image
-	 *            処理対象画像
-	 * @return インスタンス
-	 */
-	public static LatentImage from(final Image image) {
-		final LatentImage ret = new LatentImage();
-		ret.in = image;
-		return ret;
-	}
+    /**
+     * ファクトリメソッド
+     *
+     * @param image
+     *            処理対象画像
+     * @return インスタンス
+     */
+    public static LatentImage from(final Image image) {
+        final LatentImage ret = new LatentImage();
+        ret.in = image;
+        return ret;
+    }
 
-	/**
-	 * UnaryOperator<Color>を遅延操作として追加する
-	 *
-	 * @param f
-	 *            操作
-	 * @return インスタンス
-	 */
-	public LatentImage transform(final UnaryOperator<Color> f) {
-		return transform(ColorTransformer.toColorTransformer(f));
-	}
+    /**
+     * UnaryOperator<Color>を遅延操作として追加する
+     *
+     * @param f
+     *            操作
+     * @return インスタンス
+     */
+    public LatentImage transform(final UnaryOperator<Color> f) {
+        return transform(ColorTransformer.toColorTransformer(f));
+    }
 
-	/**
-	 * ColorTransformerを遅延操作として追加する
-	 *
-	 * @param f
-	 *            操作
-	 * @return インスタンス
-	 */
-	public LatentImage transform(final ColorTransformer f) {
-		pendingOperations.add(f);
-		return this;
-	}
+    /**
+     * ColorTransformerを遅延操作として追加する
+     *
+     * @param f
+     *            操作
+     * @return インスタンス
+     */
+    public LatentImage transform(final ColorTransformer f) {
+        pendingOperations.add(f);
+        return this;
+    }
 
-	/**
-	 * 遅延した操作を実行してイメージを取り出す。
-	 *
-	 * @return 全ての操作を適用したイメージ
-	 */
-	public Image toImage() {
-		final int width = (int) in.getWidth();
-		final int height = (int) in.getHeight();
-		final WritableImage out = new WritableImage(width, height);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				Color c = in.getPixelReader().getColor(x, y);
-				for (final ColorTransformer f : pendingOperations) {
-					c = f.apply(x, y, c);
-				}
-				out.getPixelWriter().setColor(x, y, c);
-			}
-		}
-		return out;
-	}
+    /**
+     * 遅延した操作を実行してイメージを取り出す。
+     *
+     * @return 全ての操作を適用したイメージ
+     */
+    public Image toImage() {
+        final int width = (int) in.getWidth();
+        final int height = (int) in.getHeight();
+        final WritableImage out = new WritableImage(width, height);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Color c = in.getPixelReader().getColor(x, y);
+                for (final ColorTransformer f : pendingOperations) {
+                    c = f.apply(x, y, c);
+                }
+                out.getPixelWriter().setColor(x, y, c);
+            }
+        }
+        return out;
+    }
 }

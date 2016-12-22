@@ -13,12 +13,12 @@ import org.junit.Test;
  * @author 山田晃一
  */
 public class MapsTest {
-	@Test
-	public void testMap() {
-		final List<Integer> l = Arrays.asList(1, 2, 3, 4, 5);
-		final List<String> u = Maps.map(l, String::valueOf);
-		for (int i = 0; i < l.size(); i++) {
-			assertTrue(l.get(i).toString().equals(u.get(i)));
-		}
-	}
+    @Test
+    public void testMap() {
+        final List<Integer> l = Arrays.asList(1, 2, 3, 4, 5);
+        final List<String> u = Maps.map(l, String::valueOf);
+        for (int i = 0; i < l.size(); i++) {
+            assertTrue(l.get(i).toString().equals(u.get(i)));
+        }
+    }
 }

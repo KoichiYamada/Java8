@@ -20,39 +20,41 @@ import java.util.stream.Stream;
  * @author 山田晃一
  */
 public class ArrayListCollector {
-	/**
-	 * データファイルのパス
-	 */
-	private static String DATA_FILE_PATH = "src/ch02/ex11/alice30.txt";
+    /**
+     * データファイルのパス
+     */
+    private static String DATA_FILE_PATH = "src/ch02/ex11/alice30.txt";
 
-	/**
-	 * エントリポイント
-	 *
-	 * @param argv
-	 *            引数（未使用）
-	 * @throws IOException
-	 *             ファイルが読み込めない
-	 */
-	public static void main(final String[] argv) throws IOException {
-		final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
-		final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
-		final List<String> result = ArrayListCollector.collect(words.stream().parallel(), words.size());
-		result.stream().limit(100).forEach(System.out::println);
-	}
+    /**
+     * エントリポイント
+     *
+     * @param argv
+     *            引数（未使用）
+     * @throws IOException
+     *             ファイルが読み込めない
+     */
+    public static void main(final String[] argv) throws IOException {
+        final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
+        final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
+        final List<String> result = ArrayListCollector.collect(words.stream().parallel(),
+                words.size());
+        result.stream().limit(100).forEach(System.out::println);
+    }
 
-	/**
-	 * コレクト
-	 *
-	 * @param stream
-	 *            収集対象のストリーム
-	 * @param num
-	 *            ストリームの個数
-	 * @return 収集したArrayList
-	 */
-	public static <T> ArrayList<T> collect(final Stream<T> stream, final int num) {
-		final ArrayList<T> result = new ArrayList<>(num);
-		final List<T> list = Collections.synchronizedList(result);
-		stream.collect(Collector.of(() -> list, (c, e) -> c.add(e), (a, b) -> list, Characteristics.IDENTITY_FINISH));
-		return result;
-	}
+    /**
+     * コレクト
+     *
+     * @param stream
+     *            収集対象のストリーム
+     * @param num
+     *            ストリームの個数
+     * @return 収集したArrayList
+     */
+    public static <T> ArrayList<T> collect(final Stream<T> stream, final int num) {
+        final ArrayList<T> result = new ArrayList<>(num);
+        final List<T> list = Collections.synchronizedList(result);
+        stream.collect(Collector.of(() -> list, (c, e) -> c.add(e), (a, b) -> list,
+                Characteristics.IDENTITY_FINISH));
+        return result;
+    }
 }

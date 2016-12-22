@@ -11,27 +11,27 @@ import javafx.scene.paint.Color;
  */
 @FunctionalInterface
 public interface ColorTransformer {
-	/**
-	 * UnariOperator<Color>をColorTransformerへ変える。
-	 *
-	 * @param op
-	 *            元のUnaryOperator<Color>
-	 * @return x,yを無視して元と同じ計算をするColorTransformer
-	 */
-	static ColorTransformer toColorTransformer(final UnaryOperator<Color> op) {
-		return (x, y, i) -> op.apply(i.getColor(x, y));
-	}
+    /**
+     * UnariOperator<Color>をColorTransformerへ変える。
+     *
+     * @param op
+     *            元のUnaryOperator<Color>
+     * @return x,yを無視して元と同じ計算をするColorTransformer
+     */
+    static ColorTransformer toColorTransformer(final UnaryOperator<Color> op) {
+        return (x, y, i) -> op.apply(i.getColor(x, y));
+    }
 
-	/**
-	 * 指定位置の色を返す
-	 *
-	 * @param x
-	 *            x
-	 * @param y
-	 *            y
-	 * @param image
-	 *            適用すべき画像を持つLatentImage
-	 * @return 新しい色
-	 */
-	Color apply(int x, int y, LatentImage image);
+    /**
+     * 指定位置の色を返す
+     *
+     * @param x
+     *            x
+     * @param y
+     *            y
+     * @param image
+     *            適用すべき画像を持つLatentImage
+     * @return 新しい色
+     */
+    Color apply(int x, int y, LatentImage image);
 }

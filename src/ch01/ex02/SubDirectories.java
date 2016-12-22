@@ -8,27 +8,27 @@ import java.io.File;
  * @author 山田晃一
  */
 public class SubDirectories {
-	/**
-	 * 指定されたフォルダのサブディレクトリをラムダによって列挙する
-	 *
-	 * @param parentDirectoryPath
-	 *            サブディレクトリを列挙する親フォルダ
-	 * @return サブディレクトリの配列
-	 */
-	public File[] subDirectoriesByLambda(final String parentDirectoryPath) {
-		final File file = new File(parentDirectoryPath);
-		return file.listFiles(pathname -> pathname.isDirectory());
-	}
+    /**
+     * 指定されたフォルダのサブディレクトリをラムダによって列挙する
+     *
+     * @param parentDirectoryPath
+     *            サブディレクトリを列挙する親フォルダ
+     * @return サブディレクトリの配列
+     */
+    public File[] subDirectoriesByLambda(final String parentDirectoryPath) {
+        final File file = new File(parentDirectoryPath);
+        return file.listFiles(pathname -> pathname.isDirectory());
+    }
 
-	/**
-	 * 指定されたフォルダのサブディレクトリを関数参照によって列挙する
-	 *
-	 * @param parentDirectoryPath
-	 *            サブディレクトリを列挙する親フォルダ
-	 * @return サブディレクトリの配列
-	 */
-	public File[] subDirectoriesByFunctionRef(final String parentDirectoryPath) {
-		final File file = new File(parentDirectoryPath);
-		return file.listFiles(File::isDirectory);
-	}
+    /**
+     * 指定されたフォルダのサブディレクトリを関数参照によって列挙する
+     *
+     * @param parentDirectoryPath
+     *            サブディレクトリを列挙する親フォルダ
+     * @return サブディレクトリの配列
+     */
+    public File[] subDirectoriesByFunctionRef(final String parentDirectoryPath) {
+        final File file = new File(parentDirectoryPath);
+        return file.listFiles(File::isDirectory);
+    }
 }
