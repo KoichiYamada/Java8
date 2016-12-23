@@ -9,6 +9,12 @@ import java.time.Month;
  * @author 山田晃一
  */
 public class PlusYears {
+    /**
+     * System.outで確認してみる
+     *
+     * @param args
+     *            引数
+     */
     public static void main(final String[] args) {
         // 基準
         final LocalDate base = LocalDate.of(2000, Month.FEBRUARY, 29);
