@@ -22,6 +22,7 @@ public class OffsetsUnderHour {
                 .map(ZoneId::of)
                 .map(now::atZone)
                 .filter(s -> (s.getOffset().get(ChronoField.OFFSET_SECONDS) % 3600) != 0)
+                .sorted()
                 .forEach(System.out::println);
     }
 }

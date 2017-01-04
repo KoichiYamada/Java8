@@ -20,6 +20,7 @@ public class Offsets {
         ZoneId.getAvailableZoneIds().stream()
                 .map(ZoneId::of)
                 .map(now::atZone)
+                .sorted()
                 .forEach(System.out::println);
     }
 }
