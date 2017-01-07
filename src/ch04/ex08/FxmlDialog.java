@@ -34,11 +34,9 @@ public class FxmlDialog extends Application implements Initializable {
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        okButton.disableProperty()
-                .bind(Bindings.createBooleanBinding(
-                        () -> (username.getText().length() == 0)
-                                || (password.getText().length() == 0),
-                        username.textProperty(), password.textProperty()));
+        okButton.disableProperty().bind(Bindings.createBooleanBinding(
+                () -> (username.getText().length() == 0) || (password.getText().length() == 0),
+                username.textProperty(), password.textProperty()));
     }
 
     @Override

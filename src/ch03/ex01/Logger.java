@@ -54,8 +54,7 @@ public class Logger {
      *             出力先に書き込めない
      */
     public static void logIf(final Level level, final BooleanSupplier criteria,
-            final Supplier<String> message)
-            throws IOException {
+            final Supplier<String> message) throws IOException {
         if (level.intValue() >= outputLowerLevel.intValue()) {
             if (criteria.getAsBoolean()) {
                 os.write(message.get());

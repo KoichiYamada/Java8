@@ -76,10 +76,8 @@ public class NodeBorder extends Application {
      * @return ボーダー
      */
     private Border createBorderWithColor(final String nameOfColor) {
-        return new Border(
-                new BorderStroke(Paint.valueOf(nameOfColor), BorderStrokeStyle.SOLID,
-                        CornerRadii.EMPTY,
-                        BorderWidths.DEFAULT));
+        return new Border(new BorderStroke(Paint.valueOf(nameOfColor), BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT));
     }
 
     /**

@@ -177,8 +177,7 @@ public class LatentImage implements PixelReader {
 
     @Override
     public <T extends Buffer> void getPixels(final int x, final int y, final int w, final int h,
-            final WritablePixelFormat<T> pixelformat, final T buffer,
-            final int scanlineStride) {
+            final WritablePixelFormat<T> pixelformat, final T buffer, final int scanlineStride) {
         /**
          * 単に委譲しようかと思ったが、transformerを適用すべきなのか？未サポートにしておく。 <code>
         if (in == null) {
@@ -209,8 +208,8 @@ public class LatentImage implements PixelReader {
 
     @Override
     public void getPixels(final int x, final int y, final int w, final int h,
-            final WritablePixelFormat<IntBuffer> pixelformat, final int[] buffer,
-            final int offset, final int scanlineStride) {
+            final WritablePixelFormat<IntBuffer> pixelformat, final int[] buffer, final int offset,
+            final int scanlineStride) {
         /**
          * 単に委譲しようかと思ったが、transformerを適用すべきなのか？未サポートにしておく。 <code>
         if (in == null) {

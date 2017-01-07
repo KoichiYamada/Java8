@@ -37,14 +37,12 @@ public class ComparatorsTest {
         System.out.println("testLexicographicComparatorNumberNameValue");
         final TestObj[] expect = new TestObj[] { o1, o2, o3, o4 };
         Collections.shuffle(list);
-        list.stream().forEach(
-                e -> System.out
-                        .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
+        list.stream().forEach(e -> System.out
+                .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
         System.out.println("--↓--↓--↓--↓--↓--↓--↓--↓--↓--↓--");
         list.sort(Comparators.lexicographicComparator("number", "name", "value"));
-        list.stream().forEach(
-                e -> System.out
-                        .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
+        list.stream().forEach(e -> System.out
+                .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
         assertTrue(Arrays.deepEquals(expect, list.toArray()));
     }
 
@@ -53,14 +51,12 @@ public class ComparatorsTest {
         System.out.println("testLexicographicComparatorNumberValueName");
         final TestObj[] expect = new TestObj[] { o3, o1, o2, o4 };
         Collections.shuffle(list);
-        list.stream().forEach(
-                e -> System.out
-                        .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
+        list.stream().forEach(e -> System.out
+                .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
         System.out.println("--↓--↓--↓--↓--↓--↓--↓--↓--↓--↓--");
         list.sort(Comparators.lexicographicComparator("number", "value", "name"));
-        list.stream().forEach(
-                e -> System.out
-                        .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
+        list.stream().forEach(e -> System.out
+                .print(e.number + ":" + e.name + ":" + e.value + System.lineSeparator()));
         assertTrue(Arrays.deepEquals(expect, list.toArray()));
     }
 }

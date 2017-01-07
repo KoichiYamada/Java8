@@ -56,8 +56,7 @@ public class Asyncs {
      *            第二処理の例外を処理する
      */
     public static <T> void doInOrderAsync(final Supplier<T> first,
-            final BiConsumer<T, Throwable> second,
-            final Consumer<Throwable> handler) {
+            final BiConsumer<T, Throwable> second, final Consumer<Throwable> handler) {
         new Thread(() -> {
             T result;
             Throwable t;

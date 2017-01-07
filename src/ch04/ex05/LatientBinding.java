@@ -48,8 +48,7 @@ public class LatientBinding {
      * @return 計算型プロパティ
      */
     public static <T, U, R> ObservableValue<R> observe(final BiFunction<T, U, R> f,
-            final ObservableValue<T> t,
-            final ObservableValue<U> u) {
+            final ObservableValue<T> t, final ObservableValue<U> u) {
         return new ObservableValueBase<R>() {
             {
                 t.addListener((p, o, n) -> fireValueChangedEvent());

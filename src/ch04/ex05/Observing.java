@@ -40,9 +40,8 @@ public class Observing extends Application {
                 .bind(LatientBinding.observe(t -> t.doubleValue() >= 100, slider.valueProperty()));
         larger.setOnAction(e -> slider.setValue(slider.getValue() + 10));
         // ラベルのバインド
-        value.textProperty()
-                .bind(LatientBinding.observe(t -> Integer.toString((int) t.doubleValue()),
-                        slider.valueProperty()));
+        value.textProperty().bind(LatientBinding
+                .observe(t -> Integer.toString((int) t.doubleValue()), slider.valueProperty()));
         // コンテナの設定
         final HBox hbox = new HBox(smaller, slider, value, larger);
         hbox.setAlignment(Pos.CENTER);

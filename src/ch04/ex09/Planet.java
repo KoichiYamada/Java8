@@ -28,9 +28,8 @@ public class Planet extends Application {
         // 惑星
         final Circle planet = new Circle();
         planet.setFill(Color.BLUE);
-        planet.radiusProperty()
-                .bind(Bindings.min(primaryStage.widthProperty(), primaryStage.heightProperty())
-                        .divide(20));
+        planet.radiusProperty().bind(Bindings
+                .min(primaryStage.widthProperty(), primaryStage.heightProperty()).divide(20));
         planet.centerXProperty().bind(primaryStage.widthProperty().divide(2));
         planet.centerYProperty().bind(primaryStage.heightProperty().divide(2));
         // 起動

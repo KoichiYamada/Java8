@@ -42,10 +42,13 @@ public class GrayFramer extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         final Image image = new Image(new File("src/ch03/ex05/queen-mary.png").toURI().toString());
-        primaryStage.setScene(new Scene(new Pane(new ImageView(transform(image, (x, y,
-                c) -> (x < 10) || (x > (image.getWidth() - 10)) || (y < 10)
-                        || (y > (image.getHeight() - 10))
-                                ? Color.GRAY : c)))));
+        primaryStage
+                .setScene(
+                        new Scene(
+                                new Pane(new ImageView(transform(image,
+                                        (x, y, c) -> (x < 10) || (x > (image.getWidth() - 10))
+                                                || (y < 10) || (y > (image.getHeight() - 10))
+                                                        ? Color.GRAY : c)))));
         primaryStage.show();
     }
 
