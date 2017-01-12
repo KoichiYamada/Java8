@@ -22,6 +22,12 @@ public class Cal {
      *            月と年を渡すこと
      */
     public static void main(final String[] args) {
+        if (args.length < 2) {
+            System.out.println("USAGE: java Cal month year");
+            System.out.println("  month: [0-9]");
+            System.out.println("  year : [0-9]");
+            return;
+        }
         Cal.cal(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
     }
 
