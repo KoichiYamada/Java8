@@ -20,7 +20,7 @@ public class Friday13th {
     public static void main(final String[] args) {
         final TemporalAdjuster nextFriday = TemporalAdjusters.next(DayOfWeek.FRIDAY);
         LocalDate date = LocalDate.ofYearDay(1901, 1);
-        while (date.getYear() < 2000) {
+        while (date.getYear() <= 2000) {
             if (date.getDayOfMonth() == 13) {
                 System.out.println(date);
             }
