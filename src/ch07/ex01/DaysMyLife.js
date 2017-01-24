@@ -6,4 +6,4 @@
 
 var birthDate = java.time.LocalDate.of(1980, java.time.Month.JANUARY, 12)
 var now = java.time.LocalDate.now()
-print(birthDate.until(now, java.time.temporal.ChronoUnit.DAYS) + " days.")
+print(birthDate.until(now, java.time.temporal.ChronoUnit.DAYS) + ' days.')

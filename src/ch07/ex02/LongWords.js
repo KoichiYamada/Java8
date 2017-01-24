@@ -5,11 +5,11 @@
  */
 
 // 読み込んで
-//var filePath = "alice.txt"
-var filePath = "src/ch07/ex02/alice.txt"
+//var filePath = 'alice.txt'
+var filePath = 'src/ch07/ex02/alice.txt'
 var paths = java.nio.file.Paths.get(filePath)
-var bytes = java.nio.file.Files.readAllBytes()
-var contents = new java.lang.String() // contents は jsString
+var bytes = java.nio.file.Files.readAllBytes(paths)
+var contents = new java.lang.String(bytes) // contents は jsString
 var words = java.util.Arrays.asList(contents.split(/\W+/)) // jsString の split
 
 // 選択して
