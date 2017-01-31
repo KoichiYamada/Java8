@@ -2,7 +2,8 @@
 
 /*
  * PieChart Sample
- * java で書くよりトライアルアンドエラーは早い。簡単とも難しいとも感じない。
+ * java で書くよりトライアルアンドエラーは早い。
+ * 知識と IDE が揃っていれば、簡単さは Java も JavaScript も変わらないと感じている。
  */
 
 var data = load()
