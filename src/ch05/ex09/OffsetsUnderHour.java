@@ -10,19 +10,19 @@ import java.time.temporal.ChronoField;
  * @author 山田晃一
  */
 public class OffsetsUnderHour {
-    /**
-     * エントリポイント
-     *
-     * @param args
-     *            引数（未使用）
-     */
-    public static void main(final String[] args) {
-        final Instant now = Instant.now();
-        ZoneId.getAvailableZoneIds().stream()
-                .map(ZoneId::of)
-                .map(now::atZone)
-                .filter(s -> (s.getOffset().get(ChronoField.OFFSET_SECONDS) % 3600) != 0)
-                .sorted()
-                .forEach(System.out::println);
-    }
+	/**
+	 * エントリポイント
+	 *
+	 * @param args
+	 *            引数（未使用）
+	 */
+	public static void main(final String[] args) {
+		final Instant now = Instant.now();
+		ZoneId.getAvailableZoneIds().stream()
+				.map(ZoneId::of)
+				.map(now::atZone)
+				.filter(s -> (s.getOffset().get(ChronoField.OFFSET_SECONDS) % 3600) != 0)
+				.sorted()
+				.forEach(System.out::println);
+	}
 }

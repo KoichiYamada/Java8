@@ -12,19 +12,19 @@ import java.util.stream.Stream;
  * @author 山田晃一
  */
 public class DoubleStreams {
-    /**
-     * 平均を求める。
-     *
-     * @param stream
-     *            Doubleのストリーム
-     * @return 平均値
-     */
-    public static double average(final Stream<Double> stream) {
-        final AtomicInteger count = new AtomicInteger(0);
-        final double sum = stream.reduce(0.0, (t, u) -> {
-            count.getAndIncrement();
-            return t + u;
-        });
-        return sum / count.get();
-    }
+	/**
+	 * 平均を求める。
+	 *
+	 * @param stream
+	 *            Doubleのストリーム
+	 * @return 平均値
+	 */
+	public static double average(final Stream<Double> stream) {
+		final AtomicInteger count = new AtomicInteger(0);
+		final double sum = stream.reduce(0.0, (t, u) -> {
+			count.getAndIncrement();
+			return t + u;
+		});
+		return sum / count.get();
+	}
 }

@@ -13,25 +13,25 @@ import javafx.stage.Stage;
  * @author 山田晃一
  */
 public class FitCircle extends Application {
-    /**
-     * エントリポイント
-     *
-     * @param args
-     *            引数
-     */
-    public static void main(final String[] args) {
-        launch(args);
-    }
+	/**
+	 * エントリポイント
+	 *
+	 * @param args
+	 *            引数
+	 */
+	public static void main(final String[] args) {
+		launch(args);
+	}
 
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        final Circle circle = new Circle();
-        final Scene scene = new Scene(new Pane(circle));
-        circle.centerXProperty().bind(scene.widthProperty().divide(2));
-        circle.centerYProperty().bind(scene.heightProperty().divide(2));
-        circle.radiusProperty()
-                .bind(Bindings.min(scene.widthProperty(), scene.heightProperty()).divide(2));
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+	@Override
+	public void start(final Stage primaryStage) throws Exception {
+		final Circle circle = new Circle();
+		final Scene scene = new Scene(new Pane(circle));
+		circle.centerXProperty().bind(scene.widthProperty().divide(2));
+		circle.centerYProperty().bind(scene.heightProperty().divide(2));
+		circle.radiusProperty()
+				.bind(Bindings.min(scene.widthProperty(), scene.heightProperty()).divide(2));
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 }

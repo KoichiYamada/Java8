@@ -16,25 +16,25 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author 山田晃一
  */
 public class LongestWord {
-    /**
-     * データファイルのパス
-     */
-    private static String DATA_FILE_PATH = "src/ch06/ex01/alice30.txt";
+	/**
+	 * データファイルのパス
+	 */
+	private static String DATA_FILE_PATH = "src/ch06/ex01/alice30.txt";
 
-    /**
-     * エントリポイント
-     *
-     * @param argv
-     *            引数（未使用）
-     * @throws IOException
-     *             ファイルが開けない
-     */
-    public static void main(final String[] args) throws IOException {
-        final AtomicReference<String> longestWord = new AtomicReference<>("");
-        final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
-        final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
-        words.parallelStream().forEach(
-                word -> longestWord.updateAndGet(x -> word.length() > x.length() ? word : x));
-        System.out.println(longestWord.get());
-    }
+	/**
+	 * エントリポイント
+	 *
+	 * @param argv
+	 *            引数（未使用）
+	 * @throws IOException
+	 *             ファイルが開けない
+	 */
+	public static void main(final String[] args) throws IOException {
+		final AtomicReference<String> longestWord = new AtomicReference<>("");
+		final String contents = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
+		final List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
+		words.parallelStream().forEach(
+				word -> longestWord.updateAndGet(x -> word.length() > x.length() ? word : x));
+		System.out.println(longestWord.get());
+	}
 }

@@ -5,7 +5,7 @@ package ch06.ex02;
  * <p>
  * 使えない。並行更新された値の合計はsumで得る必要があるが、sumは計算中に発生した並行更新を取り逃すことがある。
  * </p>
- * 
+ *
  * <pre>
  * JavaDocより
  * public long sum()

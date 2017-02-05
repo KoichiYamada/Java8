@@ -7,8 +7,8 @@ package ch01.ex12;
  * compatibility-guide-2156366-ja.html#A999081）
  */
 public class UseOldCollection {
-    public static void main(final String[] argv) {
-        // OldCollection.javaからjarを作って、ビルドパスに追加している場合のみコンパイル可能
-        // System.out.println(new OldCollection<>().stream());
-    }
+	public static void main(final String[] argv) {
+		// OldCollection.javaからjarを作って、ビルドパスに追加している場合のみコンパイル可能
+		// System.out.println(new OldCollection<>().stream());
+	}
 }

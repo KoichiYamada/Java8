@@ -1,7 +1,7 @@
 package ch07.ex02;
 
 public class Usage {
-    public static void main(final String[] args) {
-        System.out.println("jjs LongWords.js");
-    }
+	public static void main(final String[] args) {
+		System.out.println("jjs LongWords.js");
+	}
 }

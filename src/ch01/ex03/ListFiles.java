@@ -11,16 +11,16 @@ import java.io.File;
  * @author 山田晃一
  */
 public class ListFiles {
-    /**
-     * 指定されたディレクトリ内で、指定された拡張子を持つファイルの配列を取得する。
-     *
-     * @param directory
-     *            ファイルを走査するディレクトリ
-     * @param extention
-     *            フィルタリングする拡張子
-     * @return 条件に一致したファイルの配列
-     */
-    public String[] listFilesWithExtention(final File directory, final String extention) {
-        return directory.list((dir, name) -> name.endsWith(extention));
-    }
+	/**
+	 * 指定されたディレクトリ内で、指定された拡張子を持つファイルの配列を取得する。
+	 *
+	 * @param directory
+	 *            ファイルを走査するディレクトリ
+	 * @param extention
+	 *            フィルタリングする拡張子
+	 * @return 条件に一致したファイルの配列
+	 */
+	public String[] listFilesWithExtention(final File directory, final String extention) {
+		return directory.list((dir, name) -> name.endsWith(extention));
+	}
 }
