@@ -21,7 +21,7 @@ public class ReservedInFile {
 	 *             入出力エラー
 	 */
 	public static void main(final String[] args) throws IOException {
-		final String srcPath = "src/ch08/ex10/src/";
+		final String srcPath = "res/sdk/src/";
 		try (final Stream<Path> stream = Files.walk(Paths.get(srcPath))) {
 			stream
 					.filter(p -> p.toString().endsWith(".java"))
